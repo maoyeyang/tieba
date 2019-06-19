@@ -1,10 +1,12 @@
 <template>
-  <div>111</div>
+  <div>
+    首页话题
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Home'
+  name: 'HomeTopic'
 }
 </script>
 

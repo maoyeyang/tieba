@@ -4,14 +4,14 @@
                  class="tabbar-item"
                  to="/home">
       <img class="tabbar-item-icon"
-           src="./home.png" />
+           src="../assets/icon/home.png" />
       <span class="tabbar-item-label">首页</span>
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
                  to="/member">
       <img class="tabbar-item-icon"
-           src="./login.png" />
+           src="../assets/icon/login.png" />
       <span class="tabbar-item-label">进吧</span>
     </router-link>
     <router-link tag="span"
@@ -23,14 +23,14 @@
                  class="tabbar-item"
                  to="/shopcar">
       <img class="tabbar-item-icon"
-           src="./bell.png" />
+           src="../assets/icon/bell.png" />
       <span class="tabbar-item-label">消息</span>
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
                  to="/search">
       <img class="tabbar-item-icon"
-           src="./user.png" />
+           src="../assets/icon/user.png" />
       <span class="tabbar-item-label">我的</span>
     </router-link>
   </nav>
@@ -70,6 +70,7 @@ export default {
     .tabbar-item-center
       width: 50px
       height: 50px
+      line-height: 45px
       margin: 0 auto
       background-color: blue
       border-radius: 25%
@@ -78,7 +79,6 @@ export default {
       transform: translateY(-15px) rotate(45deg)
       transform-origin: 50% 50%
       text-align: center
-      line-height: 50px
       color: #ffffff
       font-size: 35px
 </style>

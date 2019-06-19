@@ -1,1 +1,1 @@
-仿百度贴吧,vue的webapp
+仿百度贴吧,基于vue+vuex+axios+stylus+vueRouter的webapp
