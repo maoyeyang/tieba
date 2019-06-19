@@ -2,35 +2,37 @@
   <nav class="tabbar">
     <router-link tag="span"
                  class="tabbar-item"
-                 to="/home">
-      <img class="tabbar-item-icon"
-           src="../assets/icon/home.png" />
+                 to="/home"
+                 :class="isRefresh? 'refresh' :''">
+      <div class="tabbar-item-icon icon-home"
+           :class="isRefresh? 'refresh' :''">
+      </div>
       <span class="tabbar-item-label">首页</span>
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
                  to="/member">
-      <img class="tabbar-item-icon"
-           src="../assets/icon/login.png" />
+      <span class="tabbar-item-icon icon-join">
+      </span>
       <span class="tabbar-item-label">进吧</span>
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
-                 to="/top">
+                 to="/release">
       <div class="tabbar-item-center">×</div>
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
                  to="/shopcar">
-      <img class="tabbar-item-icon"
-           src="../assets/icon/bell.png" />
+      <span class="tabbar-item-icon icon-message">
+      </span>
       <span class="tabbar-item-label">消息</span>
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
                  to="/search">
-      <img class="tabbar-item-icon"
-           src="../assets/icon/user.png" />
+      <span class="tabbar-item-icon icon-user">
+      </span>
       <span class="tabbar-item-label">我的</span>
     </router-link>
   </nav>
@@ -41,7 +43,7 @@ export default {
   name: 'Tabbar',
   data () {
     return {
-
+      isRefresh: false
     }
   }
 }
@@ -60,11 +62,40 @@ export default {
     flex: 1
     text-align: center
     .tabbar-item-icon
-      padding-top: 5px
-      margin: 0 auto
+      margin: 5px auto 0
       height: 30px
       width: 30px
       display: block
+      &.icon-home
+        background-image: url('../assets/icon/home.png')
+        background-size: cover
+      &.icon-join
+        background-image: url('../assets/icon/join.png')
+        background-size: cover
+      &.icon-message
+        background-image: url('../assets/icon/message.png')
+        background-size: cover
+      &.icon-user
+        background-image: url('../assets/icon/user.png')
+        background-size: cover
+    &.active
+      .tabbar-item-icon
+        &.icon-home
+          background-image: url('../assets/icon/homeActive.png')
+        &.icon-join
+          background-image: url('../assets/icon/joinActive.png')
+        &.icon-message
+          background-image: url('../assets/icon/messageActive.png')
+        &.icon-user
+          background-image: url('../assets/icon/userActive.png')
+        &.refresh
+          background-image: url('../assets/icon/refresh.png')
+          background-size: cover
+      .tabbar-item-label
+        color: #0083FF
+      &.refresh
+        .tabbar-item-label
+          color: #FF1B19
     .tabbar-item-label
       font-size: 12px
     .tabbar-item-center
