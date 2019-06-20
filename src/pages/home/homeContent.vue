@@ -1,6 +1,39 @@
 <template>
-  <div>
-    首页内容
+  <div class="home-content">
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
+    <div>首页内容</div>
   </div>
 </template>
 
@@ -10,4 +43,9 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped></style>
+<style lang="stylus" scoped>
+.home-content
+  padding-top: 56px
+  padding-bottom: 60px
+  font-size: 20px
+</style>

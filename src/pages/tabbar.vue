@@ -11,7 +11,7 @@
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
-                 to="/member">
+                 to="/join">
       <span class="tabbar-item-icon icon-join">
       </span>
       <span class="tabbar-item-label">进吧</span>
@@ -23,14 +23,14 @@
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
-                 to="/shopcar">
+                 to="/message">
       <span class="tabbar-item-icon icon-message">
       </span>
       <span class="tabbar-item-label">消息</span>
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
-                 to="/search">
+                 to="/user">
       <span class="tabbar-item-icon icon-user">
       </span>
       <span class="tabbar-item-label">我的</span>
@@ -57,6 +57,7 @@ export default {
   width: 100%
   height: 60px
   display: flex
+  background-color: #fff
   box-shadow: 0px 0px 3px #747474
   .tabbar-item
     flex: 1
@@ -101,7 +102,7 @@ export default {
     .tabbar-item-center
       width: 50px
       height: 50px
-      line-height: 45px
+      line-height: 50px
       margin: 0 auto
       background-color: blue
       border-radius: 25%

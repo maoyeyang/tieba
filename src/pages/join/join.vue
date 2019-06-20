@@ -4,29 +4,19 @@
          :class="isScroll?'top-scroll':''">
       <router-link tag="span"
                    class="home-top-item"
-                   to="/home/focus">
+                   to="/join/focus">
         <span class="home-top-item-text">关注</span>
       </router-link>
       <router-link tag="span"
                    class="home-top-item"
-                   to="/home/content">
-        <span class="home-top-item-text">首页</span>
-      </router-link>
-      <router-link tag="span"
-                   class="home-top-item"
-                   to="/home/topic">
-        <span class="home-top-item-text">话题</span>
-      </router-link>
-      <router-link tag="span"
-                   class="home-top-item"
-                   to="/home/live">
-        <span class="home-top-item-text">直播</span>
+                   to="/join/recommend">
+        <span class="home-top-item-text">推荐</span>
       </router-link>
       <router-link tag="span"
                    class="home-top-right"
-                   to="/search">
-        <img class="home-top-search"
-             src="../../assets/icon/search.png" />
+                   to="/sign">
+        <img class="home-top-sign"
+             src="../../assets/icon/sign.png" />
       </router-link>
     </div>
     <router-view></router-view>
@@ -35,7 +25,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: 'Join',
   data () {
     return {
       isScroll: true
@@ -81,7 +71,7 @@ export default {
   .home-top-right
     float: right
     margin-right: 20px
-    .home-top-search
+    .home-top-sign
       width: 36px
       height: 36px
       vertical-align: middle
