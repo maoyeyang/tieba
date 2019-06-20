@@ -32,6 +32,7 @@ img
   min-width: 330px
   z-index: 9
   position: absolute
+  font-family: '楷体'
   .tabbar
     z-index: 9999
   .home-top

@@ -4,7 +4,7 @@
         :rules="ruleLogin">
     <FormItem prop="user">
       <i-input type="text"
-               v-model="formLogin.user"
+               v-model="formLogin.username"
                placeholder="Username">
         <Icon type="ios-person-outline"
               slot="prepend"></Icon>
@@ -28,9 +28,9 @@
     </FormItem>
     <FormItem class="button-login-register">
       <Button type="primary"
-              @click="handleSubmit('formLogin')">登录</Button>
+              @click="onSubmit('formLogin')">登录</Button>
       <Button type="primary"
-              @click="handleSubmit('formLogin')">注册</Button>
+              @click="ToRegister">注册</Button>
     </FormItem>
   </Form>
 </template>
@@ -40,31 +40,54 @@ export default {
   data () {
     return {
       formLogin: {
-        user: '',
+        username: '',
         password: '',
         switch: false
       },
       ruleLogin: {
-        user: [
-          { required: true, message: '请输入你的用户名', trigger: 'blur' }
+        username: [
+          { required: true, message: '请输入你的用户名', trigger: 'blur' },
+          { type: 'string', min: 6, message: '用户名不应该少于6字符', trigger: 'blur' },
+          { type: 'string', max: 16, message: '用户名不应该多于16字符', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入你的密码.', trigger: 'blur' },
-          { type: 'string', min: 6, message: '这个密码不应该少于6字符', trigger: 'blur' }
+          { type: 'string', min: 6, message: '密码不应该少于6字符', trigger: 'blur' },
+          { type: 'string', max: 16, message: '密码不应该多于16字符', trigger: 'blur' }
         ]
       }
     }
   },
   methods: {
-    handleSubmit (name) {
+    onSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
+          this.saveInfo()
           this.$Message.success('Success!')
         } else {
           this.$Message.error('Fail!')
         }
       })
+    },
+    ToRegister () {
+      this.$router.push({ path: '/register' })
+    },
+    saveInfo () {
+      const { username, password } = this.formLogin
+      const userInfo = { username, password }
+      if (this.formLogin.switch === true) {
+        localStorage.setItem('user', JSON.stringify(userInfo))
+      } else {
+        localStorage.removeItem('user')
+      }
     }
+  },
+  created () {
+    if (localStorage.getItem('user')) {
+      let userInfo = JSON.parse(localStorage.getItem('user'))
+      this.formLogin = { ...userInfo, switch: true }
+    }
+    console.log(111)
   }
 }
 </script>

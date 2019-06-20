@@ -1,39 +1,6 @@
 <template>
   <div class="home-content">
     <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
-    <div>首页内容</div>
   </div>
 </template>
 

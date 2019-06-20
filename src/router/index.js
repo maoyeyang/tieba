@@ -5,6 +5,7 @@ import routerRole from './routerRole'
 import Home from 'pages/home/home'
 import Join from 'pages/join/join'
 import Login from 'pages/login'
+import Search from 'pages/search'
 
 import HomeFocus from 'pages/home/HomeFocus'
 import HomeContent from 'pages/home/HomeContent'
@@ -70,6 +71,10 @@ const router = new Router({
     path: '/login',
     name: Login,
     component: Login
+  }, {
+    path: '/search',
+    name: Search,
+    component: Search
   }],
   linkActiveClass: 'active'
 })

@@ -1,7 +1,8 @@
 <template>
   <div class="login">
     <div class="login-top">
-      <div class="go-back">
+      <div class="go-back"
+           @click="goBack">
         <span class="icon-goback"></span>
         <span class="text-goback">返回</span>
       </div>
@@ -12,7 +13,6 @@
     <h1 class="title">欢迎登录百度账号</h1>
     <p class="text">输入用户密码,快速登录</p>
     <LoginInput></LoginInput>
-    <button @click="isShow">show</button>
   </div>
 </template>
 
@@ -26,7 +26,8 @@ export default {
     }
   },
   methods: {
-    isShow () {
+    goBack () {
+      this.$router.go(-1)
       this.$store.dispatch('showTabbar')
     }
   },
