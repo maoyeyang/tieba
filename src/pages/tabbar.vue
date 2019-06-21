@@ -16,15 +16,23 @@
       </span>
       <span class="tabbar-item-label">进吧</span>
     </router-link>
-    <router-link tag="span"
-                 class="tabbar-item"
-                 to="/release">
-      <div class="tabbar-item-center">×</div>
-    </router-link>
+    <span class="tabbar-item click"
+          @click="release">
+      <transition name="release"
+                  @before-enter="releaseBeforeEnter"
+                  @enter="releaseEnter"
+                  @after-enter="releaseAfterEnter">
+        <div class="tabbar-item-center"
+             :class="isClick ? 'isClick' : ''"
+             ref="release_X">×</div>
+      </transition>
+    </span>
     <router-link tag="span"
                  class="tabbar-item"
                  to="/message">
       <span class="tabbar-item-icon icon-message">
+        <span class="tabbar-message-number"
+              v-show="message_number>0">{{message_number > 99 ? '99+':message_number}}</span>
       </span>
       <span class="tabbar-item-label">消息</span>
     </router-link>
@@ -35,6 +43,13 @@
       </span>
       <span class="tabbar-item-label">我的</span>
     </router-link>
+    <div class="mask-bottom"
+         v-show="isClick">
+      <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/font.png" /></span><span class="mask-item-text">文字</span></div>
+      <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/camera.png" /></span><span class="mask-item-text">拍摄</span></div>
+      <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/image.png" /></span><span class="mask-item-text">相册</span></div>
+      <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/live.png" /></span><span class="mask-item-text">直播</span></div>
+    </div>
   </nav>
 </template>
 
@@ -43,7 +58,28 @@ export default {
   name: 'Tabbar',
   data () {
     return {
-      isRefresh: false
+      isRefresh: false,
+      isClick: false,
+      message_number: 100
+    }
+  },
+  methods: {
+    release () {
+      if (!sessionStorage.getItem('user')) {
+        this.$router.push({ path: '/login' })
+        return
+      }
+      this.isClick = !this.isClick
+      this.$emit('updateMask', this.isClick)
+    },
+    releaseBeforeEnter () {
+      console.log('releaseBeforeEnter')
+    },
+    releaseEnter () {
+      console.log('releaseEnter')
+    },
+    releaseAfterEnter () {
+      console.log('releaseAfterEnter')
     }
   }
 }
@@ -67,18 +103,27 @@ export default {
       height: 30px
       width: 30px
       display: block
+      background-size: cover
       &.icon-home
         background-image: url('../assets/icon/home.png')
-        background-size: cover
       &.icon-join
         background-image: url('../assets/icon/join.png')
-        background-size: cover
       &.icon-message
         background-image: url('../assets/icon/message.png')
-        background-size: cover
+        position: relative
+        .tabbar-message-number
+          position: absolute
+          top: -4px
+          left: 50%
+          background-color: red
+          color: #fff
+          font-weight: bold
+          padding: 0 7px
+          text-align: center
+          box-shadow: 0px 0px 5px red
+          border-radius: 15px
       &.icon-user
         background-image: url('../assets/icon/user.png')
-        background-size: cover
     &.active
       .tabbar-item-icon
         &.icon-home
@@ -102,7 +147,7 @@ export default {
     .tabbar-item-center
       width: 50px
       height: 50px
-      line-height: 50px
+      line-height: 52px
       margin: 0 auto
       background-color: blue
       border-radius: 25%
@@ -113,4 +158,41 @@ export default {
       text-align: center
       color: #ffffff
       font-size: 35px
+      transition: all 0.3s linear
+      z-index: 8
+      &.isClick
+        transform: translateY(-60px) rotate(90deg)
+        z-index: 99
+  .tabbar-item.click
+    z-index: 999
+  .mask-bottom
+    width: 100%
+    height: 260px
+    position: fixed
+    bottom: 0
+    left: 0
+    border-radius: 10px 10px 0 0
+    background-color: rgba(240, 240, 240, 0.9)
+    z-index: 7
+    display: flex
+    justify-content: space-around
+    padding-top: 40px
+    .mask-item
+      width: 100%
+      height: 240px
+      text-align: center
+      .mask-item-icon
+        width: 60px
+        height: 60px
+        display: block
+        margin: 0 auto
+        background-color: #fff
+        border-radius: 15px
+        img
+          width: 40px
+          height: 40px
+          margin: 10px auto
+      .mask-item-text
+        font-size: 16px
+        line-height: 30px
 </style>

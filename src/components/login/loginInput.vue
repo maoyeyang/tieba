@@ -2,7 +2,7 @@
   <Form ref="formLogin"
         :model="formLogin"
         :rules="ruleLogin">
-    <FormItem prop="user">
+    <FormItem prop="username">
       <i-input type="text"
                v-model="formLogin.username"
                placeholder="Username">
@@ -46,9 +46,9 @@ export default {
       },
       ruleLogin: {
         username: [
-          { required: true, message: '请输入你的用户名', trigger: 'blur' },
-          { type: 'string', min: 6, message: '用户名不应该少于6字符', trigger: 'blur' },
-          { type: 'string', max: 16, message: '用户名不应该多于16字符', trigger: 'blur' }
+          { required: true, message: '请输入你的密码.', trigger: 'blur' },
+          { type: 'string', min: 6, message: '密码不应该少于6字符', trigger: 'blur' },
+          { type: 'string', max: 16, message: '密码不应该多于16字符', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入你的密码.', trigger: 'blur' },
@@ -63,7 +63,12 @@ export default {
       this.$refs[name].validate((valid) => {
         if (valid) {
           this.saveInfo()
+          sessionStorage.setItem('user', this.formLogin.username)
           this.$Message.success('Success!')
+          setTimeout(() => {
+            this.$router.push({ path: '/home/content' })
+            this.$store.dispatch('showTabbar')
+          }, 500)
         } else {
           this.$Message.error('Fail!')
         }
@@ -87,7 +92,6 @@ export default {
       let userInfo = JSON.parse(localStorage.getItem('user'))
       this.formLogin = { ...userInfo, switch: true }
     }
-    console.log(111)
   }
 }
 </script>

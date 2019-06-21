@@ -5,7 +5,8 @@
             @click="search"></span>
       <input class="search-input"
              :placeholder="'大家都在搜:'+allsearch"
-             v-model="searchInput" />
+             v-model="searchInput"
+             @keyup.enter="search" />
       <span class="search-cancel"
             @click="goBack">取消</span>
     </div>
@@ -44,7 +45,14 @@ export default {
       this.$store.dispatch('showTabbar')
     },
     search () {
-      const searchHistory = this.searchHistory
+      let searchHistory = this.searchHistory
+      if (this.searchInput.trim() === '') {
+        this.searchInput = ''
+        return
+      }
+      if (searchHistory.length > 9) {
+        searchHistory.pop()
+      }
       searchHistory.unshift({ message: this.searchInput })
       this.searchInput = ''
       localStorage.setItem('searchHistory', JSON.stringify(searchHistory))

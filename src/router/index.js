@@ -4,6 +4,7 @@ import routerRole from './routerRole'
 
 import Home from 'pages/home/home'
 import Join from 'pages/join/join'
+import User from 'pages/user/user'
 import Login from 'pages/login'
 import Search from 'pages/search'
 
@@ -21,7 +22,6 @@ const router = new Router({
     path: '/',
     redirect: '/home'
   }, {
-    name: Home,
     path: '/home',
     component: Home,
     children: [{
@@ -51,7 +51,6 @@ const router = new Router({
     ]
   }, {
     path: '/join',
-    name: Join,
     component: Join,
     children: [{
       path: '',
@@ -68,21 +67,24 @@ const router = new Router({
     }
     ]
   }, {
+    path: '/user',
+    name: 'User',
+    component: User
+  }, {
     path: '/login',
-    name: Login,
+    name: 'Login',
     component: Login
   }, {
     path: '/search',
-    name: Search,
+    name: 'Search',
     component: Search
   }],
   linkActiveClass: 'active'
 })
 
 router.beforeEach((to, from, next) => {
-  // console.log(to)
   // console.log(from)
-
+  // console.log(to)
   if (routerRole.some(route => route.path === to.path) && !sessionStorage.getItem('user')) {
     next('/login')
     return
