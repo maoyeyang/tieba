@@ -64,13 +64,13 @@ export default {
         if (valid) {
           this.saveInfo()
           sessionStorage.setItem('user', this.formLogin.username)
-          this.$Message.success('Success!')
+          this.$Message.success('登录成功,即将跳转!')
           setTimeout(() => {
             this.$router.push({ path: '/home/content' })
             this.$store.dispatch('showTabbar')
-          }, 500)
+          }, 800)
         } else {
-          this.$Message.error('Fail!')
+          this.$Message.error('登录失败,请验证用户名和密码是否正确!')
         }
       })
     },

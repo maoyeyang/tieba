@@ -1,15 +1,18 @@
 <template>
   <div class="join-recommend">
     <searchInput></searchInput>
+    <recommendInterest></recommendInterest>
   </div>
 </template>
 
 <script>
 import searchInput from 'components/search/searchInput'
+import recommendInterest from 'components/join/recommendInterest'
 export default {
   name: 'JoinRecommend',
   components: {
-    searchInput
+    searchInput,
+    recommendInterest
   }
 }
 </script>

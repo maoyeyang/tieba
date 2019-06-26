@@ -51,7 +51,7 @@ export default {
             startX: 0,
             click: true,
             scrollX: true,
-            scrollY: true,
+            scrollY: false,
             momentum: false
           })
         } else {

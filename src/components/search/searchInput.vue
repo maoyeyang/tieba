@@ -3,7 +3,7 @@
                tag='div'
                class="search-input">
     <i-input :placeholder="'大家都在搜:'+allsearch"
-             style="width: 90%;margin: 10px 5%;box-shadow: 0 0 5px #D6D6D6">
+             style="width: 90%;margin: 10px 5%;box-shadow: 0 0 5px #D6D6D6;border-radius: 5px">
       <Icon type="ios-search"
             slot="prefix" />
     </i-input>
