@@ -11,6 +11,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@better-scroll/core": "^2.0.0-alpha.15",
     "axios": "^0.19.0",
     "iview": "^3.4.2",
     "vue": "^2.5.2",

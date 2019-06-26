@@ -4,6 +4,7 @@ import routerRole from './routerRole'
 
 import Home from 'pages/home/home'
 import Join from 'pages/join/join'
+import Message from 'pages/message/message'
 import User from 'pages/user/user'
 import Login from 'pages/login'
 import Search from 'pages/search'
@@ -66,6 +67,10 @@ const router = new Router({
       component: JoinRecommend
     }
     ]
+  }, {
+    path: '/message',
+    name: 'Message',
+    component: Message
   }, {
     path: '/user',
     name: 'User',

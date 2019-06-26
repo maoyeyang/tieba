@@ -35,6 +35,9 @@ export default {
 img
   vertical-align: middle
 #app
+  -moz-user-select: none
+  -khtml-user-select: none
+  user-select: none
   height: 100vh
   color: #000
   width: 100vw

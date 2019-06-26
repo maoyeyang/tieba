@@ -156,7 +156,7 @@ export default {
       font-size: 18px
       line-height: 30px
     .user-top-left, .user-top-right
-      width: 200px
+      width: 150px
       height: 30px
       display: block
       .user-top-icon
@@ -173,7 +173,6 @@ export default {
           background-image: url('../../assets/icon/store.png')
         &.icon-setting
           background-image: url('../../assets/icon/setting.png')
-          margin-right: 10px
   .user-info
     width: 100%
     height: 70px
@@ -254,6 +253,9 @@ export default {
     div
       padding: 10px 0
       border-bottom: 5px solid #F2F3F2
+    .ivu-col.ivu-col-span-6
+      &:active
+        background-color: #F2F3F2
     .user-message-number
       font-size: 20px
       height: 25px
@@ -266,6 +268,8 @@ export default {
       height: 50px
       padding-top: 10px
       border-bottom: 1px solid #FBF9FA
+      &:active
+        background-color: #F2F3F2
       .user-mid-icon
         width: 30px
         height: 30px
