@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { setCookie } from '../../common/methods'
 export default {
   data () {
     return {
@@ -46,9 +47,9 @@ export default {
       },
       ruleLogin: {
         username: [
-          { required: true, message: '请输入你的密码.', trigger: 'blur' },
-          { type: 'string', min: 6, message: '密码不应该少于6字符', trigger: 'blur' },
-          { type: 'string', max: 16, message: '密码不应该多于16字符', trigger: 'blur' }
+          { required: true, message: '请输入你的用户名.', trigger: 'blur' },
+          { type: 'string', min: 6, message: '用户名不应该少于6字符', trigger: 'blur' },
+          { type: 'string', max: 16, message: '用户名不应该多于16字符', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入你的密码.', trigger: 'blur' },
@@ -60,17 +61,24 @@ export default {
   },
   methods: {
     onSubmit (name) {
-      this.$refs[name].validate((valid) => {
+      this.$refs[name].validate(async (valid) => {
         if (valid) {
-          this.saveInfo()
-          sessionStorage.setItem('user', this.formLogin.username)
-          this.$Message.success('登录成功,即将跳转!')
-          setTimeout(() => {
+          const user = {
+            username: this.formLogin.username,
+            password: this.formLogin.password
+          }
+          const { data } = await this.$http.post('/login', user)
+          if (data && data.statusCode === 200) {
+            setCookie('username', data.data.token)
+            this.saveInfo()
+            this.$Message.success(`恭喜 ${data.data.nickname} ,登录成功!`)
             this.$router.push({ path: '/home/content' })
             this.$store.dispatch('showTabbar')
-          }, 800)
-        } else {
-          this.$Message.error('登录失败,请验证用户名和密码是否正确!')
+          } else if (data && data.statusCode === 400) {
+            this.$Message.error(`登录失败,${data.message}`)
+          } else if (data && data.statusCode === 500) {
+            this.$Message.error(`登录失败,内部服务器错误`)
+          }
         }
       })
     },

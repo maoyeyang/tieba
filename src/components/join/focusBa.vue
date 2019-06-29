@@ -2,16 +2,20 @@
   <div class="focus-ba">
     <div class="focus-ba-top">
       <h3 class="focus-ba-top-title">关注的吧</h3>
-      <span class="focus-ba-top-right">等级排序<span class="focus-ba-top-icon"></span></span>
+      <span class="focus-ba-top-right"
+            @click="changeList"
+            ref="changeList">{{sortName}}<span class="focus-ba-top-icon"></span></span>
     </div>
     <div class="focus-ba-content">
       <div class="focus-ba-item"
            v-for="(item, i) in focusbaList"
            :key="i">
         <img class="focus-ba-img"
-             :src="item.src">
+             :src="item.theme_url">
         <div class="focus-ba-info">
-          <p class="focus-ba-name">{{item.name}}<span></span></p>
+          <p class="focus-ba-name">{{item.ba_name}}
+            <span class="focus-ba-level"
+                  :class="[levelarr[i] > 9 ? 'level-red' :(levelarr[i] > 3 ? 'level-blue' :'level-cyan')]">{{levelarr[i]}}</span></p>
           <p class="focus-ba-des">{{item.description}}</p>
         </div>
       </div>
@@ -20,43 +24,40 @@
 </template>
 
 <script>
+import { levelByEXP } from '../../common/methods'
 export default {
   data () {
     return {
-      focusbaList: [{
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }]
+      focusbaList: [],
+      levelarr: [],
+      sortName: '等级排序'
     }
+  },
+  methods: {
+    getFocusBaList () {
+      this.$http.get('/auth/focusbalist').then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.focusbaList = data.data
+          this.levelarr = data.data.map((item) => { return levelByEXP(item.exp) })
+        } else {
+          this.$Message.error('登录认证失败')
+        }
+      })
+    },
+    changeList () {
+      if (this.sortName === '等级排序') {
+        this.sortName = '更新排序'
+        return
+      }
+      this.sortName = '等级排序'
+      this.focusbaList.sort(function (a, b) {
+        return b.exp - a.exp
+      })
+      this.levelarr = this.focusbaList.map((item) => { return levelByEXP(item.exp) })
+    }
+  },
+  created () {
+    this.getFocusBaList()
   }
 }
 </script>
@@ -94,16 +95,35 @@ export default {
     .focus-ba-item
       width: 100%
       display: flex
-      padding: 8px 0
+      padding: 4px 0
       .focus-ba-img
-        width: 40px
-        height: 40px
+        width: 45px
+        height: 45px
         border-radius: 50%
         margin-right: 10px
       .focus-ba-info
-        padding-top: 3px
         .focus-ba-name
           font-size: 14px
+          display: flex
+          line-height: 25px
+          justify-content: flex-start
+          .focus-ba-level
+            padding: 3px 6px
+            margin-left: 5px
+            line-height: 12px
+            text-align: center
+            font-size: 8px
+            display: block
+            color: #fff
+            width: 25px
+            height: 25px
+            background-size: cover
+            &.level-red
+              background-image: url('../../assets/icon/jewel-red.png')
+            &.level-blue
+              background-image: url('../../assets/icon/jewel-blue.png')
+            &.level-cyan
+              background-image: url('../../assets/icon/jewel-cyan.png')
         .focus-ba-des
           font-size: 12px
           color: #C4C1C2

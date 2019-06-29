@@ -3,11 +3,15 @@
     <searchInput></searchInput>
     <newWatch v-if="isLogin"></newWatch>
     <focusBa v-if="isLogin"></focusBa>
-    <noLogin v-if="!isLogin"></noLogin>
+    <noLogin v-if="!isLogin"
+             @onLogin="onLogin"></noLogin>
   </div>
 </template>
 
 <script>
+import {
+  getCookie
+} from '../../common/methods'
 import searchInput from 'components/search/searchInput'
 import newWatch from 'components/join/newWatch'
 import focusBa from 'components/join/focusBa'
@@ -16,8 +20,21 @@ export default {
   name: 'JoinFocus',
   data () {
     return {
-      isLogin: true
+      isLogin: false
     }
+  },
+  methods: {
+    onIsLogin () {
+      if (getCookie('username')) {
+        this.isLogin = true
+      }
+    },
+    onLogin () {
+      this.$router.push({ path: '/login' })
+    }
+  },
+  created () {
+    this.onIsLogin()
   },
   components: {
     searchInput,

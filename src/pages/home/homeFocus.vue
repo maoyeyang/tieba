@@ -10,12 +10,15 @@
     </div>
     <div v-if="isLogin"
          class="is-login">
-      <div></div>
+      <div>111</div>
     </div>
   </div>
 </template>
 
 <script>
+import {
+  getCookie
+} from '../../common/methods'
 export default {
   name: 'HomeFocus',
   data () {
@@ -25,7 +28,7 @@ export default {
   },
   methods: {
     onIsLogin () {
-      if (sessionStorage.getItem('user')) {
+      if (getCookie('username')) {
         this.isLogin = true
       }
     },

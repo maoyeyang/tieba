@@ -3,15 +3,26 @@
     <p class="no-login-title">关注的吧</p>
     <div class="no-login-content">
       <img class="no-login-img"
-           src='../../assets/images/moon.png'>
-      <p class="no-login-text">登录获取精彩内容></p>
+           src='../../assets/images/moon.png' />
+      <div class="no-login-text"
+           @click='onLogin'>登录获取精彩内容></div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
 
+    }
+  },
+  methods: {
+    onLogin () {
+      console.log(111)
+      this.$emit('onLogin')
+    }
+  }
 }
 </script>
 
@@ -24,9 +35,12 @@ export default {
   .no-login-content
     text-align: center
     .no-login-img
-      width: 200px
-      height: 180px
+      margin-top: 10px
+      width: 155px
+      height: 140px
     .no-login-text
       font-size: 14px
       color: blue
+      width: 180px
+      margin: 5px auto
 </style>

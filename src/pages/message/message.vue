@@ -45,7 +45,6 @@ export default {
     },
     initScroll () {
       this.$nextTick(() => {
-        const width = this.$refs['message-content'].offsetWidth
         if (!this.contentScroll) {
           this.contentScroll = new BScroll(this.$refs['message-content'], {
             startX: 0,
@@ -58,6 +57,7 @@ export default {
           this.contentScroll.refresh()
         }
         this.contentScroll.on('scrollEnd', ({ x }) => {
+          let width = this.$refs['message-content'].offsetWidth
           if (x !== -width && x !== -2 * width && x !== 0) {
             if (Math.abs(x - this.oldX) < width / 4) {
               this.contentScroll.scrollTo(-this.index * width, 0, 300)
@@ -88,7 +88,7 @@ export default {
 <style lang="stylus" scoped>
 .message
   width: 100%
-  height: 100%
+  height: 100vh
   padding-bottom: 60px
   .message-top
     height: 40px

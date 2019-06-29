@@ -1,20 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import routerRole from './routerRole'
+import routesRole from './routesRole'
+import {
+  getCookie
+} from '../common/methods'
+import JsonWebToken from 'jsonwebtoken'
 
-import Home from 'pages/home/home'
-import Join from 'pages/join/join'
-import Message from 'pages/message/message'
-import User from 'pages/user/user'
+import routesHome from './routesHome'
+import routesJoin from './routesJoin'
+import routesMessage from './routesMessage'
+import routesUser from './routesUser'
+
 import Login from 'pages/login'
+import Register from 'pages/register'
 import Search from 'pages/search'
-
-import HomeFocus from 'pages/home/HomeFocus'
-import HomeContent from 'pages/home/HomeContent'
-import HomeTopic from 'pages/home/HomeTopic'
-import HomeLive from 'pages/home/HomeLive'
-import JoinFocus from 'pages/join/JoinFocus'
-import JoinRecommend from 'pages/join/JoinRecommend'
 
 Vue.use(Router)
 
@@ -22,75 +21,40 @@ const router = new Router({
   routes: [{
     path: '/',
     redirect: '/home'
-  }, {
-    path: '/home',
-    component: Home,
-    children: [{
-      path: '',
-      redirect: 'content'
-    },
-    {
-      path: 'focus',
-      name: 'HomeFocus',
-      component: HomeFocus
-    },
-    {
-      path: 'content',
-      name: 'Header',
-      component: HomeContent
-    },
-    {
-      path: 'topic',
-      name: 'HomeTopic',
-      component: HomeTopic
-    },
-    {
-      path: 'live',
-      name: 'HomeLive',
-      component: HomeLive
-    }
-    ]
-  }, {
-    path: '/join',
-    component: Join,
-    children: [{
-      path: '',
-      redirect: 'recommend'
-    },
-    {
-      path: 'focus',
-      name: 'JoinFocus',
-      component: JoinFocus
-    }, {
-      path: 'recommend',
-      name: 'JoinRecommend',
-      component: JoinRecommend
-    }
-    ]
-  }, {
-    path: '/message',
-    name: 'Message',
-    component: Message
-  }, {
-    path: '/user',
-    name: 'User',
-    component: User
-  }, {
+  },
+  ...routesHome,
+  ...routesJoin,
+  ...routesMessage,
+  ...routesUser,
+  {
     path: '/login',
     name: 'Login',
     component: Login
   }, {
+    path: '/register',
+    name: 'Register',
+    component: Register
+  }, {
     path: '/search',
     name: 'Search',
     component: Search
-  }],
+  }
+  ],
   linkActiveClass: 'active'
 })
 
 router.beforeEach((to, from, next) => {
   // console.log(from)
   // console.log(to)
-  if (routerRole.some(route => route.path === to.path) && !sessionStorage.getItem('user')) {
+
+  const token = getCookie('username')
+  const isTokenRight = !!(token && JsonWebToken.decode(token))
+  // 全局设定发送请求header的token验证
+  if (isTokenRight) {
+    Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
+  }
+
+  if (routesRole.some(route => route.path === to.path) && !getCookie('username')) {
     next('/login')
     return
   }

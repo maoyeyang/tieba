@@ -18,16 +18,16 @@
                  tag="span">
       <div class="user-info">
         <img class="user-info-avatar"
-             src="../../assets/images/moon.png" />
+             :src="userInfo.avatar_url" />
         <div class="user-info-title">
           <p class="user-info-name">
             <span class="user-info-icon-large"
-                  :class="!userInfo.isVip ? 'icon-crown-1' : 'icon-crown-2'"></span>
+                  :class="!userInfo.member ? 'icon-crown-1' : 'icon-crown-2'"></span>
             <span class="user-info-nickname">{{userInfo.nickname}}</span>
             <span class="user-info-icon-small icon-man"
-                  v-if="userInfo.sex"></span>
+                  v-if="userInfo.sex ==='men'"></span>
             <span class="user-info-icon-small icon-woman"
-                  v-if="!userInfo.sex"></span>
+                  v-if="userInfo.sex ==='women'"></span>
           </p>
           <p class="user-info-prompt">
             查看个人主页和编辑资料
@@ -40,28 +40,28 @@
       <router-link to="/focuslist"
                    tag="span">
         <i-col span="6">
-          <p class="user-message-number">{{userMessage.focus}}</p>
+          <p class="user-message-number">{{userMessage.focusCount}}</p>
           <p class="user-message-des">关注</p>
         </i-col>
       </router-link>
       <router-link to="/fanslist"
                    tag="span">
         <i-col span="6">
-          <p class="user-message-number">{{userMessage.fans}}</p>
+          <p class="user-message-number">{{userMessage.fansCount}}</p>
           <p class="user-message-des">粉丝</p>
         </i-col>
       </router-link>
       <router-link to="/focusbalist"
                    tag="span">
         <i-col span="6">
-          <p class="user-message-number">{{userMessage.focusBa}}</p>
+          <p class="user-message-number">{{userMessage.focusBaCount}}</p>
           <p class="user-message-des">关注的吧</p>
         </i-col>
       </router-link>
       <router-link to="/articlelist"
                    tag="span">
         <i-col span="6">
-          <p class="user-message-number">{{userMessage.article}}</p>
+          <p class="user-message-number">{{userMessage.tieCount}}</p>
           <p class="user-message-des">帖子</p>
         </i-col>
       </router-link>
@@ -115,23 +115,61 @@ export default {
   name: 'User',
   data () {
     return {
-      userInfo: {
-        sex: true,
-        nickname: '醴柒灬',
-        isVip: true
-      },
+      userInfo: {},
       userMessage: {
-        focus: 12,
-        fans: 4,
-        focusBa: 6,
-        article: 4
+        focusCount: 0,
+        fansCount: 0,
+        focusBaCount: 0,
+        tieCount: 0
       }
     }
   },
   methods: {
     saoma () {
       this.$Message.warning('该功能暂未被实现,请勿点击!!!')
+    },
+    getUserInfo () {
+      this.$http.get('/auth/userinfo').then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.userInfo = data.data
+        } else {
+          this.$Message.error('登录认证失败')
+        }
+      })
+    },
+    getUserFocusCount () {
+      this.$http.get('/auth/focuscount').then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.userMessage = { ...(this.userMessage), ...(data.data) }
+        } else {
+          this.$Message.error('登录认证失败')
+        }
+      })
+    },
+    getFocusBaCount () {
+      this.$http.get('/auth/focusbacount').then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.userMessage = { ...(this.userMessage), ...(data.data) }
+        } else {
+          this.$Message.error('登录认证失败')
+        }
+      })
+    },
+    getTieCount () {
+      this.$http.get('/auth/usertiecount').then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.userMessage = { ...(this.userMessage), ...(data.data) }
+        } else {
+          this.$Message.error('登录认证失败')
+        }
+      })
     }
+  },
+  created () {
+    this.getUserInfo()
+    this.getUserFocusCount()
+    this.getFocusBaCount()
+    this.getTieCount()
   }
 }
 </script>
@@ -184,10 +222,10 @@ export default {
     .user-info-avatar
       width: 60px
       height: 60px
+      flex: 0 0 60px
       display: block
       margin-left: 10px
       border-radius: 50%
-      background-color: blue
     .user-info-title
       height: 70px
       width: 100%

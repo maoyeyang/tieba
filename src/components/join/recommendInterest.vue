@@ -2,16 +2,18 @@
   <div class="rec-int">
     <div class="rec-int-top">
       <h3 class="rec-int-title">你的兴趣我懂的</h3>
-      <span class="rec-int-span">换一批</span>
+      <span class="rec-int-span"
+            @click="change">换一批</span>
     </div>
     <ul class="rec-int-content">
       <li v-for="(item,i) in tiebaListBy4"
           :key="i"
           class="rec-int-item">
         <img class="rec-int-item-img"
-             :src="item.src" />
-        <p class="rec-int-item-title">{{item.name}}</p>
-        <p class="rec-int-item-info">关注:{{item.fans}}&nbsp;&nbsp;&nbsp;帖子:{{item.post}}</p>
+             :src="item.theme_url" />
+        <p class="rec-int-item-title">{{item.ba_name}}</p>
+        <p class="rec-int-item-info">关注:{{item.fans | numberByW}}&nbsp;&nbsp;
+          帖子:{{item.post_count | numberByW}}</p>
         <p class="rec-int-item-des">{{item.description}}</p>
         <span class="rec-int-item-focus">关注</span>
       </li>
@@ -23,33 +25,32 @@
 export default {
   data () {
     return {
-      tiebaListBy4: [{
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        fans: '87.8W',
-        post: '37.6W',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        fans: '87.8W',
-        post: '37.6W',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        fans: '87.8W',
-        post: '37.6W',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }, {
-        src: require('../../assets/images/img1.png'),
-        name: '少年三国志',
-        fans: '87.8W',
-        post: '37.6W',
-        description: '好看的帖子千千万万,有趣的灵魂就差你'
-      }],
       tiebaList: []
     }
+  },
+  computed: {
+    tiebaListBy4 () {
+      return this.tiebaList.slice(0, 4)
+    }
+  },
+  methods: {
+    getTiebaList () {
+      this.$http.get('/api/tiebalist').then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.tiebaList = data.data
+        } else {
+          this.$Message.error('获取资源失败')
+        }
+      })
+    },
+    change () {
+      const list1 = this.tiebaList.slice(0, 4)
+      const list2 = this.tiebaList.slice(4)
+      this.tiebaList = list2.concat(list1)
+    }
+  },
+  created () {
+    this.getTiebaList()
   }
 }
 </script>

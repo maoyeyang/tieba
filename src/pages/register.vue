@@ -1,25 +1,25 @@
 <template>
-  <div class="login">
-    <div class="login-top">
+  <div class="register">
+    <div class="register-top">
       <div class="go-back"
            @click="goBack">
         <span class="icon-goback"></span>
         <span class="text-goback">返回</span>
       </div>
-      <span class="top-title">快速登录</span>
+      <span class="register-title">快速注册</span>
     </div>
     <img class="logo"
          src="../assets/images/bd_logo.png">
-    <h1 class="title">欢迎登录百度账号</h1>
-    <p class="text">输入用户密码,快速登录</p>
-    <LoginInput></LoginInput>
+    <h1 class="title">欢迎注册百度账号</h1>
+    <p class="text">输入用户密码,快速注册</p>
+    <RegisterInput></RegisterInput>
   </div>
 </template>
 
 <script>
-import LoginInput from 'components/input/loginInput'
+import RegisterInput from 'components/input/registerInput'
 export default {
-  name: 'Login',
+  name: 'Register',
   data () {
     return {
 
@@ -28,28 +28,24 @@ export default {
   methods: {
     goBack () {
       this.$router.go(-1)
-      this.$store.dispatch('showTabbar')
     }
   },
-  created () {
-    this.$store.dispatch('hiddenTabbar')
-  },
   components: {
-    LoginInput
+    RegisterInput
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-.login
+.register
   width: 100%
-  .login-top
+  .register-top
     width: 100%
     height: 40px
     box-shadow: 0px 0px 3px #747474
     text-align: center
     position: relative
-    .top-title
+    .register-title
       margin-top: 5px
       line-height: 30px
       font-size: 24px

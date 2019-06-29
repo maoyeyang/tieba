@@ -50,27 +50,36 @@
       <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/image.png" /></span><span class="mask-item-text">相册</span></div>
       <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/live.png" /></span><span class="mask-item-text">直播</span></div>
     </div>
+    <div class="mask"
+         v-show="isMask"></div>
   </nav>
 </template>
 
 <script>
+import {
+  getCookie
+} from '../common/methods'
 export default {
   name: 'Tabbar',
   data () {
     return {
       isRefresh: false,
       isClick: false,
-      message_number: 100
+      message_number: 100,
+      isMask: false
     }
   },
   methods: {
+    updateMask (boolean) {
+      this.isMask = boolean
+    },
     release () {
-      if (!sessionStorage.getItem('user')) {
+      if (!getCookie('username')) {
         this.$router.push({ path: '/login' })
         return
       }
       this.isClick = !this.isClick
-      this.$emit('updateMask', this.isClick)
+      this.updateMask(this.isClick)
     },
     releaseBeforeEnter () {
       console.log('releaseBeforeEnter')
@@ -195,4 +204,13 @@ export default {
       .mask-item-text
         font-size: 16px
         line-height: 30px
+  .mask
+    width: 100%
+    height: 100vh
+    position: fixed
+    top: 0
+    left: 0
+    background-color: rgb(0, 0, 0)
+    opacity: 0.8
+    z-index: 5
 </style>

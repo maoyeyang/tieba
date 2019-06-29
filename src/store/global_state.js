@@ -1,9 +1,11 @@
 const allState = {
   state: {
-    isTabbar: true
+    isTabbar: true,
+    user_id: null
   },
   getters: {
-    isTabbar: state => state.isTabbar
+    isTabbar: state => state.isTabbar,
+    getUserId: state => state.user_id
   },
   actions: {
     hiddenTabbar ({
@@ -20,6 +22,9 @@ const allState = {
   mutations: {
     updateTabbar (state, update) {
       state.isTabbar = update
+    },
+    updateUserId (state, update) {
+      state.user_id = update
     }
   }
 }

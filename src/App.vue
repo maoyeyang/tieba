@@ -1,10 +1,7 @@
 <template>
   <div id="app">
     <router-view />
-    <Tabbar v-show='$store.getters.isTabbar'
-            @updateMask="updateMask"></Tabbar>
-    <div class="mask"
-         v-show="isMask"></div>
+    <Tabbar v-show='$store.getters.isTabbar'></Tabbar>
   </div>
 </template>
 
@@ -14,16 +11,12 @@ export default {
   name: 'App',
   data () {
     return {
-      isMask: false
-    }
-  },
-  methods: {
-    updateMask (boolean) {
-      this.isMask = boolean
     }
   },
   components: {
     Tabbar
+  },
+  created () {
   }
 }
 </script>
@@ -54,13 +47,4 @@ img
   .home-content
     position: absolute
     z-index: 2
-  .mask
-    width: 100%
-    height: 100%
-    position: fixed
-    top: 0
-    left: 0
-    background-color: rgb(0, 0, 0)
-    opacity: 0.8
-    z-index: 5
 </style>
