@@ -12,12 +12,11 @@
                    to="/join/recommend">
         <span class="home-top-item-text">推荐</span>
       </router-link>
-      <router-link tag="span"
-                   class="home-top-right"
-                   to="/sign">
+      <span @click="warning"
+            class="home-top-right">
         <img class="home-top-sign"
              src="../../assets/icon/sign.png" />
-      </router-link>
+      </span>
     </div>
     <router-view></router-view>
   </div>
@@ -29,6 +28,11 @@ export default {
   data () {
     return {
       isScroll: true
+    }
+  },
+  methods: {
+    warning () {
+      this.$Message.warning('该功能暂未被实现,请勿点击!!!')
     }
   }
 }

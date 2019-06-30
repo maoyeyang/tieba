@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Tabbar from 'pages/tabbar'
+import Tabbar from 'components/tabbar'
 export default {
   name: 'App',
   data () {

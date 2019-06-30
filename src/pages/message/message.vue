@@ -12,14 +12,15 @@
             @click="romve(2)">通知</span>
       <span class="message-top-unline"
             ref="unline"></span>
-      <span class="message-top-icon icon-comment"></span>
+      <span class="message-top-icon icon-comment"
+            @click="chat"></span>
     </div>
     <div class="message-content"
          ref="message-content">
       <div class="message-content-in">
         <div class="message-content-item">adadaw</div>
-        <div class="message-content-item">123123123</div>
-        <div class="message-content-item">czxczczc</div>
+        <MessageChat class="message-content-item"></MessageChat>
+        <MessageNotice class="message-content-item"></MessageNotice>
       </div>
     </div>
   </div>
@@ -27,6 +28,8 @@
 
 <script>
 import BScroll from '@better-scroll/core'
+import MessageNotice from './messageNotice'
+import MessageChat from './messageChat'
 export default {
   name: 'Message',
   data () {
@@ -36,6 +39,9 @@ export default {
     }
   },
   methods: {
+    chat () {
+      this.$Message.warning('该功能暂未被实现,请勿点击!!!')
+    },
     romve (index) {
       let name = 'message-title-' + index
       this.index = index
@@ -81,6 +87,10 @@ export default {
     window.onresize = () => {
       this.initScroll()
     }
+  },
+  components: {
+    MessageChat,
+    MessageNotice
   }
 }
 </script>

@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import routesRole from './routesRole'
+import store from '../store'
+import {
+  routerLoginRole,
+  TabbarRoutes
+} from './routesRole'
 import {
   getCookie
 } from '../common/methods'
@@ -46,18 +50,24 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   // console.log(from)
   // console.log(to)
-
+  // 给$http请求设置cookie请求头
   const token = getCookie('username')
   const isTokenRight = !!(token && JsonWebToken.decode(token))
-  // 全局设定发送请求header的token验证
   if (isTokenRight) {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
   }
-
-  if (routesRole.some(route => route.path === to.path) && !getCookie('username')) {
+  // 符合登录条件的url 进行登录
+  if (routerLoginRole.some(route => route === to.path) && !getCookie('username')) {
     next('/login')
     return
   }
+  // 要隐藏tabbar的页面进行隐藏
+  if (TabbarRoutes.some(route => route === to.path)) {
+    store.dispatch('hiddenTabbar')
+    next()
+    return
+  }
+  store.dispatch('showTabbar')
   next()
 })
 

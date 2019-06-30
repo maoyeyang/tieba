@@ -42,7 +42,6 @@ export default {
   methods: {
     goBack () {
       this.$router.go(-1)
-      this.$store.dispatch('showTabbar')
     },
     search () {
       let searchHistory = this.searchHistory
@@ -63,7 +62,6 @@ export default {
     }
   },
   created () {
-    this.$store.dispatch('hiddenTabbar')
     const timeID = setInterval(() => {
       this.percent += 10
       if (this.percent === 130) {

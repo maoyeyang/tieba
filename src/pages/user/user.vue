@@ -8,8 +8,7 @@
       </div>
       <div class="user-top-title">我的</div>
       <div class="user-top-right">
-        <router-link to="/store"
-                     tag="span"><span class="user-top-icon icon-store"></span></router-link>
+        <span @click="saoma"><span class="user-top-icon icon-store"></span></span>
         <router-link to="/setting"
                      tag="span"><span class="user-top-icon icon-setting"></span></router-link>
       </div>

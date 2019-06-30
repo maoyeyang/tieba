@@ -1,14 +1,12 @@
-const routerRole = [{
-  path: '/release',
-  isToLogin: true
-},
-{
-  path: '/message',
-  isToLogin: true
-},
-{
-  path: '/user',
-  isToLogin: true
-}
+export const routerLoginRole = [
+  '/release',
+  '/message',
+  '/user'
 ]
-export default routerRole
+
+export const TabbarRoutes = [
+  '/login',
+  '/register',
+  '/search',
+  '/focuslist'
+]

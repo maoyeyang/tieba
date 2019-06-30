@@ -1,5 +1,6 @@
 import User from 'pages/user/user'
 import Setting from 'pages/user/setting'
+import FocusList from 'pages/user/focusList'
 
 export default [{
   path: '/user',
@@ -9,4 +10,8 @@ export default [{
   path: '/setting',
   name: 'Setting',
   component: Setting
+}, {
+  path: '/focuslist',
+  name: 'FocusList',
+  component: FocusList
 }]

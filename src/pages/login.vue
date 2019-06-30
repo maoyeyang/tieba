@@ -1,13 +1,8 @@
 <template>
   <div class="login">
-    <div class="login-top">
-      <div class="go-back"
-           @click="goBack">
-        <span class="icon-goback"></span>
-        <span class="text-goback">返回</span>
-      </div>
-      <span class="top-title">快速登录</span>
-    </div>
+    <Top>
+      <slot>快速登录</slot>
+    </Top>
     <img class="logo"
          src="../assets/images/bd_logo.png">
     <h1 class="title">欢迎登录百度账号</h1>
@@ -18,6 +13,7 @@
 
 <script>
 import LoginInput from 'components/input/loginInput'
+import Top from 'components/top'
 export default {
   name: 'Login',
   data () {
@@ -25,17 +21,9 @@ export default {
 
     }
   },
-  methods: {
-    goBack () {
-      this.$router.go(-1)
-      this.$store.dispatch('showTabbar')
-    }
-  },
-  created () {
-    this.$store.dispatch('hiddenTabbar')
-  },
   components: {
-    LoginInput
+    LoginInput,
+    Top
   }
 }
 </script>
@@ -43,42 +31,6 @@ export default {
 <style lang="stylus" scoped>
 .login
   width: 100%
-  .login-top
-    width: 100%
-    height: 40px
-    box-shadow: 0px 0px 3px #747474
-    text-align: center
-    position: relative
-    .top-title
-      margin-top: 5px
-      line-height: 30px
-      font-size: 24px
-      font-weight: normal
-      font-family: '楷体'
-      display: inline-block
-    .go-back
-      position: absolute
-      left: 0
-      top: 0
-      width: 80px
-      height: 40px
-      display: flex
-      justify-content: flex-start
-      .icon-goback
-        width: 20px
-        height: 20px
-        display: inline-block
-        margin-top: 10px
-        margin-left: 10px
-        background-image: url('../assets/icon/left-circle.png')
-        background-size: cover
-      .text-goback
-        font-size: 16px
-        width: 40px
-        height: 30px
-        line-height: 30px
-        margin-top: 5px
-        display: inline-block
   .logo
     width: 200px
     height: 70px
