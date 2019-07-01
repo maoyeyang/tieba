@@ -1,9 +1,11 @@
 const allState = {
   state: {
-    isTabbar: true
+    isTabbar: true,
+    isMask: false
   },
   getters: {
-    isTabbar: state => state.isTabbar
+    isTabbar: state => state.isTabbar,
+    isMask: state => state.isMask
   },
   actions: {
     hiddenTabbar ({
@@ -15,11 +17,24 @@ const allState = {
       commit
     }) {
       commit('updateTabbar', true)
+    },
+    hiddenMask ({
+      commit
+    }) {
+      commit('updateMask', false)
+    },
+    showMask ({
+      commit
+    }) {
+      commit('updateMask', true)
     }
   },
   mutations: {
     updateTabbar (state, update) {
       state.isTabbar = update
+    },
+    updateMask (state, update) {
+      state.isMask = update
     }
   }
 }

@@ -2,11 +2,13 @@
   <div id="app">
     <router-view />
     <Tabbar v-show='$store.getters.isTabbar'></Tabbar>
+    <AllMask v-show='$store.getters.isMask'></AllMask>
   </div>
 </template>
 
 <script>
 import Tabbar from 'components/tabbar'
+import AllMask from 'components/mask'
 export default {
   name: 'App',
   data () {
@@ -14,7 +16,8 @@ export default {
     }
   },
   components: {
-    Tabbar
+    Tabbar,
+    AllMask
   },
   created () {
   }
@@ -41,7 +44,7 @@ img
   z-index: 1
   background-repeat: no-repeat
   .tabbar
-    z-index: 6
+    z-index: 7
   .home-top
     z-index: 4
   .home-content

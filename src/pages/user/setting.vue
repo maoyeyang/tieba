@@ -1,13 +1,6 @@
 <template>
   <div class="setting">
-    <div class="setting-top">
-      <div class="go-back"
-           @click="goBack">
-        <span class="icon-goback"></span>
-        <span class="text-goback">返回</span>
-      </div>
-      <span class="setting-title">设置</span>
-    </div>
+    <Top>设置</Top>
     <div class="setting-content">
       <router-link to=""
                    tag="div"
@@ -23,23 +16,19 @@
 </template>
 
 <script>
+import Top from 'components/top'
 import {
   delCookie
 } from '../../common/methods'
 export default {
   methods: {
-    goBack () {
-      this.$router.go(-1)
-      this.$store.dispatch('showTabbar')
-    },
     exit () {
       delCookie('username')
       this.$router.push({ path: '/' })
-      this.$store.dispatch('showTabbar')
     }
   },
-  created () {
-    this.$store.dispatch('hiddenTabbar')
+  components: {
+    Top
   }
 }
 </script>

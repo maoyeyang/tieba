@@ -57,7 +57,7 @@
           <p class="user-message-des">关注的吧</p>
         </i-col>
       </router-link>
-      <router-link to="/articlelist"
+      <router-link to="/tielist"
                    tag="span">
         <i-col span="6">
           <p class="user-message-number">{{userMessage.tieCount}}</p>
@@ -92,9 +92,8 @@
           <p class="user-mid-right"></p>
         </i-col>
       </router-link>
-      <router-link to="/collection"
-                   tag="div"
-                   class="user-mid-item">
+      <div class="user-mid-item"
+           @click="saoma">
         <i-col span="4">
           <span class="user-mid-icon icon-team"></span>
         </i-col>
@@ -104,7 +103,7 @@
         <i-col span="3">
           <p class="user-mid-right"></p>
         </i-col>
-      </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -186,6 +185,7 @@ export default {
     position: fixed
     top: 0
     left: 0
+    background-color: #fff
     .user-top-title
       width: 100%
       text-align: center

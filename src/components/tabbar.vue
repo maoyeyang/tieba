@@ -18,14 +18,9 @@
     </router-link>
     <span class="tabbar-item click"
           @click="release">
-      <transition name="release"
-                  @before-enter="releaseBeforeEnter"
-                  @enter="releaseEnter"
-                  @after-enter="releaseAfterEnter">
-        <div class="tabbar-item-center"
-             :class="isClick ? 'isClick' : ''"
-             ref="release_X">×</div>
-      </transition>
+      <div class="tabbar-item-center"
+           :class="this.$store.getters.isMask ? 'isClick' : ''"
+           ref="release_X">×</div>
     </span>
     <router-link tag="span"
                  class="tabbar-item"
@@ -44,14 +39,14 @@
       <span class="tabbar-item-label">我的</span>
     </router-link>
     <div class="mask-bottom"
-         v-show="isClick">
+         v-show="this.$store.getters.isMask">
       <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/font.png" /></span><span class="mask-item-text">文字</span></div>
       <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/camera.png" /></span><span class="mask-item-text">拍摄</span></div>
       <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/image.png" /></span><span class="mask-item-text">相册</span></div>
       <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/live.png" /></span><span class="mask-item-text">直播</span></div>
     </div>
-    <div class="mask"
-         v-show="isMask"></div>
+    <!-- <div class="mask"
+         v-show="isMask"></div> -->
   </nav>
 </template>
 
@@ -64,31 +59,20 @@ export default {
   data () {
     return {
       isRefresh: false,
-      isClick: false,
-      message_number: 100,
-      isMask: false
+      message_number: 100
     }
   },
   methods: {
-    updateMask (boolean) {
-      this.isMask = boolean
-    },
     release () {
       if (!getCookie('username')) {
         this.$router.push({ path: '/login' })
         return
       }
-      this.isClick = !this.isClick
-      this.updateMask(this.isClick)
-    },
-    releaseBeforeEnter () {
-      console.log('releaseBeforeEnter')
-    },
-    releaseEnter () {
-      console.log('releaseEnter')
-    },
-    releaseAfterEnter () {
-      console.log('releaseAfterEnter')
+      if (this.$store.getters.isMask) {
+        this.$store.dispatch('hiddenMask')
+      } else {
+        this.$store.dispatch('showMask')
+      }
     }
   }
 }
@@ -171,9 +155,9 @@ export default {
       z-index: 8
       &.isClick
         transform: translateY(-60px) rotate(90deg)
-        z-index: 99
+        z-index: 9
   .tabbar-item.click
-    z-index: 999
+    z-index: 9
   .mask-bottom
     width: 100%
     height: 260px
@@ -204,13 +188,4 @@ export default {
       .mask-item-text
         font-size: 16px
         line-height: 30px
-  .mask
-    width: 100%
-    height: 100vh
-    position: fixed
-    top: 0
-    left: 0
-    background-color: rgb(0, 0, 0)
-    opacity: 0.8
-    z-index: 5
 </style>

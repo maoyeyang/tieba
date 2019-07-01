@@ -12,8 +12,8 @@
         <img class="rec-int-item-img"
              :src="item.theme_url" />
         <p class="rec-int-item-title">{{item.ba_name}}</p>
-        <p class="rec-int-item-info">关注:{{item.fans | numberByW}}&nbsp;&nbsp;
-          帖子:{{item.post_count | numberByW}}</p>
+        <p class="rec-int-item-info">关注:{{item.fans_count | numberByW}}&nbsp;&nbsp;
+          帖子:{{item.tie_count | numberByW}}</p>
         <p class="rec-int-item-des">{{item.description}}</p>
         <span class="rec-int-item-focus">关注</span>
       </li>

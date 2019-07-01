@@ -110,14 +110,15 @@ export default {
           .focus-ba-level
             padding: 3px 6px
             margin-left: 5px
-            line-height: 12px
+            margin-top: 2px
+            line-height: 15px
             text-align: center
-            font-size: 8px
+            font-size: 10px
             display: block
             color: #fff
-            width: 25px
-            height: 25px
-            background-size: cover
+            width: 24px
+            height: 20px
+            background-size: 24px 20px
             &.level-red
               background-image: url('../../assets/icon/jewel-red.png')
             &.level-blue

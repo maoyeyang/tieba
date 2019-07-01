@@ -10,5 +10,11 @@ Vue.filter('numberByW', function (number) {
   }
   return number
 })
+Vue.filter('dateByMonth', function (dataStr) {
+  return parseInt(moment(dataStr).format('MM'))
+})
+Vue.filter('dateByDay', function (dataStr) {
+  return parseInt(moment(dataStr).format('DD'))
+})
 
 export default Vue

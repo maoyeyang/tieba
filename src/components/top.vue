@@ -27,7 +27,10 @@ export default {
   height: 40px
   box-shadow: 0px 0px 3px #747474
   text-align: center
-  position: relative
+  position: fixed
+  background-color: #fff
+  top: 0
+  left: 0
   .top-title
     margin-top: 5px
     line-height: 30px
