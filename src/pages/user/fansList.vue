@@ -132,6 +132,7 @@ export default {
         .fans-img
           flex: 0 0 45px
           height: 45px
+          object-fit: cover
         .fans-info
           margin-left: 15px
           font-size: 16px

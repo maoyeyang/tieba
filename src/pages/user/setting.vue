@@ -2,10 +2,10 @@
   <div class="setting">
     <Top>设置</Top>
     <div class="setting-content">
-      <router-link to=""
+      <router-link to="/useredit"
                    tag="div"
                    class="setting-content-item">
-        我的账号
+        我的账号:&nbsp;&nbsp;{{userInfo.username}}
       </router-link>
     </div>
     <div class="setting-exit"
@@ -21,11 +21,29 @@ import {
   delCookie
 } from '../../common/methods'
 export default {
+  name: 'Setting',
+  data () {
+    return {
+      userInfo: {}
+    }
+  },
   methods: {
     exit () {
       delCookie('username')
       this.$router.push({ path: '/' })
+    },
+    getUserInfo () {
+      this.$http.get('/auth/userinfo').then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.userInfo = data.data
+        } else {
+          this.$Message.error('登录认证失败')
+        }
+      })
     }
+  },
+  created () {
+    this.getUserInfo()
   },
   components: {
     Top
@@ -81,6 +99,8 @@ export default {
     padding: 50px 0 15px 0
     .setting-content-item
       background-color: #fff
+      font-size: 16px
+      padding: 5px 15px
   .setting-exit
     width: 100%
     height: 50px

@@ -39,7 +39,7 @@ export default {
         if (data && data.statusCode === 200) {
           this.tiebaList = data.data
         } else {
-          this.$Message.error('获取资源失败')
+          this.$Message.error(data.message)
         }
       })
     },

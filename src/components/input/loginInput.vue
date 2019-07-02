@@ -75,9 +75,7 @@ export default {
             this.$router.push({ path: '/home/content' })
             this.$store.dispatch('showTabbar')
           } else if (data && data.statusCode === 400) {
-            this.$Message.error(`登录失败,${data.message}`)
-          } else if (data && data.statusCode === 500) {
-            this.$Message.error(`登录失败,内部服务器错误`)
+            this.$Message.error(data.message)
           }
         }
       })

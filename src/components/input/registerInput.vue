@@ -79,12 +79,10 @@ export default {
           }
           const { data } = await this.$http.post('/register', user)
           if (data && data.statusCode === 200) {
-            this.$Message.success('注册成功!')
+            this.$Message.success(data.message)
             this.$router.go(-1)
-          } else if (data && data.statusCode === 500) {
-            this.$Message.error('内部服务器错误')
           } else if (data && data.statusCode === 400) {
-            this.$Message.error('用户名已被占用!')
+            this.$Message.error(data.message)
           }
         }
       })

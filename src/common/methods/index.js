@@ -81,6 +81,7 @@ const levelByEXP = (number) => {
     return 1
   }
 }
+
 const EXPByMax = (number) => {
   if (number >= 300000) {
     return 'MAX'

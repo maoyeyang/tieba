@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     removeFocus () {
-      console.log(this.id)
       this.$http.post('/auth/reomvefocus', { focus_id: this.id }).then(({ data }) => {
         if (data.statusCode === 200) {
           this.$Message.success('取消关注成功')
@@ -159,6 +158,7 @@ export default {
         .focus-img
           flex: 0 0 45px
           height: 45px
+          object-fit: cover
         .focus-info
           margin-left: 15px
           font-size: 16px

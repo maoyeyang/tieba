@@ -2,20 +2,32 @@
   <div class="focus-ba">
     <div class="focus-ba-top">
       <h3 class="focus-ba-top-title">关注的吧</h3>
-      <span class="focus-ba-top-right"
-            @click="changeList"
-            ref="changeList">{{sortName}}<span class="focus-ba-top-icon"></span></span>
+      <Dropdown @on-click="changeMenu"
+                trigger="click"
+                class="focus-ba-top-right">
+        <a href="javascript:void(0)"
+           v-html='this.MenuText'
+           style="color: #A09F9F">
+          普通排序
+        </a>
+        <Icon type="ios-arrow-down"></Icon>
+        <DropdownMenu slot="list"
+                      style="color: #A09F9F">
+          <DropdownItem name="normal">普通排序</DropdownItem>
+          <DropdownItem name="level">等级排序</DropdownItem>
+        </DropdownMenu>
+      </Dropdown>
     </div>
     <div class="focus-ba-content">
       <div class="focus-ba-item"
-           v-for="(item, i) in focusbaList"
+           v-for="(item, i) in focusbaListByType"
            :key="i">
         <img class="focus-ba-img"
              :src="item.theme_url">
         <div class="focus-ba-info">
           <p class="focus-ba-name">{{item.ba_name}}
             <span class="focus-ba-level"
-                  :class="[levelarr[i] > 9 ? 'level-red' :(levelarr[i] > 3 ? 'level-blue' :'level-cyan')]">{{levelarr[i]}}</span></p>
+                  :class="[item.level > 10 ? 'level-red' :(item.level > 5 ? 'level-blue' :'level-cyan')]">{{item.level}}</span></p>
           <p class="focus-ba-des">{{item.description}}</p>
         </div>
       </div>
@@ -29,8 +41,26 @@ export default {
   data () {
     return {
       focusbaList: [],
-      levelarr: [],
-      sortName: '等级排序'
+      MenuText: '普通排序'
+    }
+  },
+  computed: {
+    focusbaListByType () {
+      if (this.focusbaList === []) {
+        return null
+      }
+      let list = this.focusbaList
+      list = list.map((item) => {
+        item.level = levelByEXP(item.exp)
+        return item
+      })
+      if (this.MenuText === '等级排序') {
+        list.sort(function (a, b) {
+          return b.exp - a.exp
+        })
+        return list
+      }
+      return list
     }
   },
   methods: {
@@ -38,22 +68,18 @@ export default {
       this.$http.get('/auth/focusbalist').then(({ data }) => {
         if (data && data.statusCode === 200) {
           this.focusbaList = data.data
-          this.levelarr = data.data.map((item) => { return levelByEXP(item.exp) })
         } else {
           this.$Message.error('登录认证失败')
         }
       })
     },
-    changeList () {
-      if (this.sortName === '等级排序') {
-        this.sortName = '更新排序'
-        return
+    changeMenu (name) {
+      if (name === 'normal') {
+        this.MenuText = '普通排序'
       }
-      this.sortName = '等级排序'
-      this.focusbaList.sort(function (a, b) {
-        return b.exp - a.exp
-      })
-      this.levelarr = this.focusbaList.map((item) => { return levelByEXP(item.exp) })
+      if (name === 'level') {
+        this.MenuText = '等级排序'
+      }
     }
   },
   created () {
@@ -77,18 +103,7 @@ export default {
       font-size: 16px
       font-weight: normal
     .focus-ba-top-right
-      display: flex
-      justify-content: flex-start
-      font-size: 12px
-      line-height: 24px
-      .focus-ba-top-icon
-        background-image: url('../../assets/icon/down.png')
-        width: 20px
-        height: 24px
-        display: block
-        background-size: 13px 13px
-        background-position: center center
-        background-repeat: no-repeat
+      font-size: 14px
   .focus-ba-content
     width: 100%
     margin-top: 10px

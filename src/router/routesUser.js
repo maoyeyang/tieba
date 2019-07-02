@@ -5,6 +5,7 @@ import FansList from 'pages/user/fansList'
 import FocusBaList from 'pages/user/focusBaList'
 import TieList from 'pages/user/tieList'
 import UserHome from 'pages/user/userHome'
+import UserEdit from 'pages/user/userEdit'
 
 export default [{
   path: '/user',
@@ -34,4 +35,8 @@ export default [{
   path: '/userhome',
   name: 'UserHome',
   component: UserHome
+}, {
+  path: '/useredit',
+  name: 'UserEdit',
+  component: UserEdit
 }]

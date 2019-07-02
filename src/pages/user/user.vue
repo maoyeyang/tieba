@@ -24,9 +24,9 @@
                   :class="!userInfo.member ? 'icon-crown-1' : 'icon-crown-2'"></span>
             <span class="user-info-nickname">{{userInfo.nickname}}</span>
             <span class="user-info-icon-small icon-man"
-                  v-if="userInfo.sex ==='men'"></span>
+                  v-if="userInfo.sex"></span>
             <span class="user-info-icon-small icon-woman"
-                  v-if="userInfo.sex ==='women'"></span>
+                  v-if="!userInfo.sex"></span>
           </p>
           <p class="user-info-prompt">
             查看个人主页和编辑资料
@@ -225,6 +225,7 @@ export default {
       display: block
       margin-left: 10px
       border-radius: 50%
+      object-fit: cover
     .user-info-title
       height: 70px
       width: 100%
@@ -238,8 +239,8 @@ export default {
         .user-info-nickname
           display: inline-block
           line-height: 40px
-          font-size: 14px
-          padding: 0 8px
+          font-size: 20px
+          padding: 0 15px
           max-width: 160px
           overflow: hidden
           text-overflow: ellipsis

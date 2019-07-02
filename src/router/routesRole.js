@@ -7,7 +7,8 @@ export const routerLoginRole = [
   '/focusbalist',
   '/tielist',
   '/setting',
-  '/userhome'
+  '/userhome',
+  '/useredit'
 ]
 
 export const TabbarRoutes = [
@@ -19,5 +20,6 @@ export const TabbarRoutes = [
   '/focusbalist',
   '/tielist',
   '/setting',
-  '/userhome'
+  '/userhome',
+  '/useredit'
 ]
