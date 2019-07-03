@@ -21,7 +21,7 @@
       </Dropdown>
     </div>
     <div class="focus-content">
-      <router-link :to="`/${item.id}/userinfo`"
+      <router-link :to="`/userinfo/${item.id}`"
                    v-for="(item,i) in focusListByValue"
                    :key="item.id"
                    tag="div"

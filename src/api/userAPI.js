@@ -5,6 +5,11 @@ export const getUserInfoWithAuth = async () => {
   const res = await axios.get('/auth/userinfo')
   return res
 }
+// 获取用户信息
+export const getUserInfo = async (id) => {
+  const res = await axios.get(`/api/userinfo/${id}`)
+  return res
+}
 // 修改用户信息 (验证)
 export const editUserInfoWithAuth = async (data) => {
   const res = await axios.post('/auth/useredit', data)

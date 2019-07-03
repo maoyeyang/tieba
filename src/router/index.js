@@ -14,6 +14,7 @@ import routesHome from './routesHome'
 import routesJoin from './routesJoin'
 import routesMessage from './routesMessage'
 import routesUser from './routesUser'
+import routesInfo from './routesInfo'
 
 import Login from 'pages/login'
 import Register from 'pages/register'
@@ -30,6 +31,7 @@ const router = new Router({
   ...routesJoin,
   ...routesMessage,
   ...routesUser,
+  ...routesInfo,
   {
     path: '/login',
     name: 'Login',
@@ -62,7 +64,7 @@ router.beforeEach((to, from, next) => {
     return
   }
   // 要隐藏tabbar的页面进行隐藏
-  if (TabbarRoutes.some(route => route === to.path)) {
+  if (TabbarRoutes.some(route => (to.path.indexOf(route) > -1))) {
     store.dispatch('hiddenTabbar')
     next()
     return

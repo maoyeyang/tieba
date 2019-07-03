@@ -72,6 +72,7 @@ export default {
         } else {
           this.$Message.error('登录认证失败')
         }
+        this.$emit('initScroll')
       })
     },
     changeMenu (name) {

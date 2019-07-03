@@ -4,7 +4,7 @@
       <slot>我的粉丝</slot>
     </Top>
     <div class="fans-content">
-      <router-link :to="`/${item.id}/userinfo`"
+      <router-link :to="`/userinfo/${item.id}`"
                    v-for="(item,i) in fansList"
                    :key="item.id"
                    tag="div"

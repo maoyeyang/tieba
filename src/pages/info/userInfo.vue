@@ -7,7 +7,8 @@
         <img class="avatar"
              :src="userInfo.avatar_url" />
         <div class="button"
-             @click="toEdit">加关注</div>
+             :class="userInfo.isFocus ?'isFocus':''"
+             @click="isFocus">{{userInfo.isFocus ?'已关注':'+关注'}}</div>
       </div>
       <div class="info-2">
         <span class="icon-large"
@@ -33,13 +34,14 @@
     <div class="dynamic">
       <img src="../../assets/images/cloud.png"
            class="img_cloud" />
-      <p class="text">你还没有任何动态</p>
+      <p class="text">他还没有任何动态</p>
     </div>
   </div>
 </template>
 
 <script>
-import { getUserInfoWithAuth } from 'api/userAPI'
+import { getCookie } from '../../common/methods'
+import { getUserInfo, reomveFocusWithAuth, addFocusWithAuth } from 'api/userAPI'
 import Top from 'components/top'
 export default {
   name: 'UserInfo',
@@ -52,12 +54,40 @@ export default {
     }
   },
   methods: {
-    toEdit () {
-      this.$router.push({ path: '/useredit' })
+    isFocus () {
+      if (!getCookie('username')) {
+        this.$router.push({ path: '/login' })
+        return
+      }
+      if (this.userInfo.isFocus === true) {
+        this.removeFocus()
+      } else {
+        this.addFocus()
+      }
+    },
+    removeFocus () {
+      reomveFocusWithAuth({ focus_id: this.userInfo.id }).then(({ data }) => {
+        if (data.statusCode === 200) {
+          this.userInfo.isFocus = false
+          return this.$Message.success('取消关注成功')
+        } else {
+          return this.$Message.error('取消关注失败')
+        }
+      })
+    },
+    addFocus () {
+      addFocusWithAuth({ focus_id: this.userInfo.id }).then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.userInfo.isFocus = true
+          return this.$Message.success('关注成功')
+        } else {
+          return this.$Message.error('关注失败')
+        }
+      })
     }
   },
   created () {
-    getUserInfoWithAuth().then(({ data }) => {
+    getUserInfo(parseInt(this.$route.params.id)).then(({ data }) => {
       if (data && data.statusCode === 200) {
         this.userInfo = data.data
       } else {
@@ -99,11 +129,15 @@ export default {
         color: #ffffff
         border-radius: 5px
         height: 34px
+        width: 70px
         padding: 0 10px
         margin-top: 8px
         text-align: center
         line-height: 34px
         font-size: 16px
+        &.isFocus
+          color: #555
+          background-color: #eee
     .info-2
       height: 35px
       line-height: 35px
