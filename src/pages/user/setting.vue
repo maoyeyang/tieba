@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { getUserInfoWithAuth } from 'api/userAPI'
 import Top from 'components/top'
 import {
   delCookie
@@ -31,19 +32,16 @@ export default {
     exit () {
       delCookie('username')
       this.$router.push({ path: '/' })
-    },
-    getUserInfo () {
-      this.$http.get('/auth/userinfo').then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.userInfo = data.data
-        } else {
-          this.$Message.error('登录认证失败')
-        }
-      })
     }
   },
   created () {
-    this.getUserInfo()
+    getUserInfoWithAuth().then(({ data }) => {
+      if (data && data.statusCode === 200) {
+        this.userInfo = data.data
+      } else {
+        this.$Message.error('登录认证失败')
+      }
+    })
   },
   components: {
     Top

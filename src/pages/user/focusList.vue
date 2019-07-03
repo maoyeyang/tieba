@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import { getUserFocusListWithAuth, reomveFocusWithAuth } from 'api/userAPI'
 import Top from 'components/top'
 export default {
   name: 'FocusList',
@@ -74,7 +75,7 @@ export default {
   },
   methods: {
     removeFocus () {
-      this.$http.post('/auth/reomvefocus', { focus_id: this.id }).then(({ data }) => {
+      reomveFocusWithAuth({ focus_id: this.id }).then(({ data }) => {
         if (data.statusCode === 200) {
           this.$Message.success('取消关注成功')
           this.focusList = this.focusList.filter(item => item.id !== this.id)
@@ -96,7 +97,7 @@ export default {
       }
     },
     getAllAndCountByFocus () {
-      this.$http.get('/auth/focuslist').then(({ data }) => {
+      getUserFocusListWithAuth().then(({ data }) => {
         if (data && data.statusCode === 200) {
           this.focusList = data.data
         } else {

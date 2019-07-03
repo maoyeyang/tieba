@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import { getUserInfoWithAuth, editUserInfoWithAuth, UploadUserImgWithAuth } from 'api/userAPI'
 import Top from 'components/top'
 export default {
   name: 'UserEdit',
@@ -89,7 +90,7 @@ export default {
       this.$store.dispatch('showMask')
     },
     async update () {
-      const { data } = await this.$http.post('/auth/useredit', this.userInfo)
+      const { data } = await editUserInfoWithAuth(this.userInfo)
       if (data.statusCode !== 200) {
         this.$Message.error(data.message)
         return
@@ -100,11 +101,7 @@ export default {
         let fd = new FormData()
         fd.append('file', this.file)
         fd.append('img_name', this.userInfo.avatar_url)
-        const { data: res } = await this.$http.post('/auth/upload_avatar', fd, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        })
+        const { data: res } = await UploadUserImgWithAuth(fd)
         if (res && res.statusCode === 200) {
           this.$Message.success(res.message)
         } else {
@@ -132,25 +129,22 @@ export default {
       fileReader.readAsDataURL(file)
       this.file = file
       return false
-    },
-    getUserInfo () {
-      this.$nextTick(() => {
-        this.$http.get('/auth/userinfo').then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.userInfo = {
-              ...(data.data),
-              ...(this.userInfo)
-            }
-            this.url = this.userInfo.avatar_url
-          } else {
-            this.$Message.error('登录认证失败')
-          }
-        })
-      })
     }
   },
   created () {
-    this.getUserInfo()
+    this.$nextTick(() => {
+      getUserInfoWithAuth().then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.userInfo = {
+            ...(data.data),
+            ...(this.userInfo)
+          }
+          this.url = this.userInfo.avatar_url
+        } else {
+          this.$Message.error('登录认证失败')
+        }
+      })
+    })
   }
 }
 </script>

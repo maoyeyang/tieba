@@ -40,8 +40,7 @@ export default {
         this.scroll = new BScroll(this.$refs['scroll_watch'], {
           startX: 0,
           click: true,
-          scrollX: true,
-          scrollY: true
+          scrollX: true
         })
       })
     }

@@ -39,28 +39,28 @@
       <router-link to="/focuslist"
                    tag="span">
         <i-col span="6">
-          <p class="user-message-number">{{userMessage.focusCount}}</p>
+          <p class="user-message-number">{{userInfo.focusCount}}</p>
           <p class="user-message-des">关注</p>
         </i-col>
       </router-link>
       <router-link to="/fanslist"
                    tag="span">
         <i-col span="6">
-          <p class="user-message-number">{{userMessage.fansCount}}</p>
+          <p class="user-message-number">{{userInfo.fansCount}}</p>
           <p class="user-message-des">粉丝</p>
         </i-col>
       </router-link>
       <router-link to="/focusbalist"
                    tag="span">
         <i-col span="6">
-          <p class="user-message-number">{{userMessage.focusBaCount}}</p>
+          <p class="user-message-number">{{userInfo.focusBaCount}}</p>
           <p class="user-message-des">关注的吧</p>
         </i-col>
       </router-link>
       <router-link to="/tielist"
                    tag="span">
         <i-col span="6">
-          <p class="user-message-number">{{userMessage.tieCount}}</p>
+          <p class="user-message-number">{{userInfo.tieCount}}</p>
           <p class="user-message-des">帖子</p>
         </i-col>
       </router-link>
@@ -109,65 +109,27 @@
 </template>
 
 <script>
+import { getUserInfoWithAuth } from 'api/userAPI'
 export default {
   name: 'User',
   data () {
     return {
-      userInfo: {},
-      userMessage: {
-        focusCount: 0,
-        fansCount: 0,
-        focusBaCount: 0,
-        tieCount: 0
-      }
+      userInfo: {}
     }
   },
   methods: {
     saoma () {
       this.$Message.warning('该功能暂未被实现,请勿点击!!!')
-    },
-    getUserInfo () {
-      this.$http.get('/auth/userinfo').then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.userInfo = data.data
-        } else {
-          this.$Message.error('登录认证失败')
-        }
-      })
-    },
-    getUserFocusCount () {
-      this.$http.get('/auth/focuscount').then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.userMessage = { ...(this.userMessage), ...(data.data) }
-        } else {
-          this.$Message.error('登录认证失败')
-        }
-      })
-    },
-    getFocusBaCount () {
-      this.$http.get('/auth/focusbacount').then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.userMessage = { ...(this.userMessage), ...(data.data) }
-        } else {
-          this.$Message.error('登录认证失败')
-        }
-      })
-    },
-    getTieCount () {
-      this.$http.get('/auth/usertiecount').then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.userMessage = { ...(this.userMessage), ...(data.data) }
-        } else {
-          this.$Message.error('登录认证失败')
-        }
-      })
     }
   },
   created () {
-    this.getUserInfo()
-    this.getUserFocusCount()
-    this.getFocusBaCount()
-    this.getTieCount()
+    getUserInfoWithAuth().then(({ data }) => {
+      if (data && data.statusCode === 200) {
+        this.userInfo = data.data
+      } else {
+        this.$Message.error('登录认证失败')
+      }
+    })
   }
 }
 </script>

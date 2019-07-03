@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { getFocusBaListWithAuth } from 'api/baAPI'
 import { levelByEXP } from '../../common/methods'
 export default {
   data () {
@@ -65,7 +66,7 @@ export default {
   },
   methods: {
     getFocusBaList () {
-      this.$http.get('/auth/focusbalist').then(({ data }) => {
+      getFocusBaListWithAuth().then(({ data }) => {
         if (data && data.statusCode === 200) {
           this.focusbaList = data.data
         } else {

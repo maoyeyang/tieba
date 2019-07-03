@@ -1,13 +1,13 @@
 <template>
-  <div class="user-home">
-    <Top>我的主页</Top>
+  <div class="user-info">
+    <Top>他的主页</Top>
     <div class="img"></div>
     <div class="info">
       <div class="info-1">
         <img class="avatar"
              :src="userInfo.avatar_url" />
         <div class="button"
-             @click="toEdit">编辑资料</div>
+             @click="toEdit">加关注</div>
       </div>
       <div class="info-2">
         <span class="icon-large"
@@ -42,7 +42,7 @@
 import { getUserInfoWithAuth } from 'api/userAPI'
 import Top from 'components/top'
 export default {
-  name: 'UserHome',
+  name: 'UserInfo',
   components: {
     Top
   },
@@ -69,7 +69,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.user-home
+.user-info
   width: 100%
   height: 100%
   padding-top: 42px

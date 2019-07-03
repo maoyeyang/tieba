@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { login } from 'api/userAPI'
 import { setCookie } from '../../common/methods'
 export default {
   data () {
@@ -67,7 +68,7 @@ export default {
             username: this.formLogin.username,
             password: this.formLogin.password
           }
-          const { data } = await this.$http.post('/login', user)
+          const { data } = await login(user)
           if (data && data.statusCode === 200) {
             setCookie('username', data.data.token)
             this.saveInfo()

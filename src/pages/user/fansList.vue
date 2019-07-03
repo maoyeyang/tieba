@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { getUserFansListWithAuth, reomveFocusWithAuth, addFocusWithAuth } from 'api/userAPI'
 import Top from 'components/top'
 export default {
   name: 'FansList',
@@ -47,7 +48,7 @@ export default {
   },
   methods: {
     removeFans () {
-      this.$http.post('/auth/reomvefocus', { focus_id: this.id }).then(({ data }) => {
+      reomveFocusWithAuth({ focus_id: this.id }).then(({ data }) => {
         if (data.statusCode === 200) {
           this.fansList = this.fansList.map(item => {
             if (item.id === this.id) {
@@ -66,7 +67,7 @@ export default {
       this.$store.dispatch('hiddenMask')
     },
     getAllAndCountByFans () {
-      this.$http.get('/auth/fanslist').then(({ data }) => {
+      getUserFansListWithAuth().then(({ data }) => {
         if (data && data.statusCode === 200) {
           this.fansList = data.data
         } else {
@@ -84,7 +85,7 @@ export default {
         this.$store.dispatch('showMask')
       } else {
         this.id = id
-        this.$http.post('/auth/addfocus', { focus_id: id }).then(({ data }) => {
+        addFocusWithAuth({ focus_id: id }).then(({ data }) => {
           if (data && data.statusCode === 200) {
             this.fansList = this.fansList.map(item => {
               if (item.id === this.id) {

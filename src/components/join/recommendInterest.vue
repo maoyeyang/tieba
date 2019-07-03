@@ -5,23 +5,29 @@
       <span class="rec-int-span"
             @click="change">换一批</span>
     </div>
-    <ul class="rec-int-content">
-      <li v-for="(item,i) in tiebaListBy4"
-          :key="i"
-          class="rec-int-item">
+    <div class="rec-int-content">
+      <router-link :to="`/${item.id}/bainfo`"
+                   tag="div"
+                   v-for="(item,i) in tiebaListBy4"
+                   :key="i"
+                   class="rec-int-item">
         <img class="rec-int-item-img"
              :src="item.theme_url" />
         <p class="rec-int-item-title">{{item.ba_name}}</p>
         <p class="rec-int-item-info">关注:{{item.fans_count | numberByW}}&nbsp;&nbsp;
           帖子:{{item.tie_count | numberByW}}</p>
         <p class="rec-int-item-des">{{item.description}}</p>
-        <span class="rec-int-item-focus">关注</span>
-      </li>
-    </ul>
+        <span class="rec-int-item-focus"
+              :class="item.isFocus ? 'focus':''"
+              @click.stop.prevent="focusba(item.id)">{{item.isFocus?'已关注':'关注'}}</span>
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
+import { addFocusBaWithAuth, getTiebaList } from 'api/baAPI'
+import { getCookie } from '../../common/methods'
 export default {
   data () {
     return {
@@ -34,8 +40,31 @@ export default {
     }
   },
   methods: {
+    focusba (id) {
+      if (!getCookie('username')) {
+        this.$router.push({ path: '/login' })
+        return
+      }
+      if (this.tiebaList.some(item => (item.id === id && item.isFocus === true))) {
+        return
+      }
+      addFocusBaWithAuth({ ba_id: id }).then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.tiebaList = this.tiebaList.map((item) => {
+            if (item.id === id) {
+              item.isFocus = true
+              item.fans_count = ++item.fans_count
+            }
+            return item
+          })
+          this.$Message.success(data.message)
+        } else {
+          this.$Message.error(data.message)
+        }
+      })
+    },
     getTiebaList () {
-      this.$http.get('/api/tiebalist').then(({ data }) => {
+      getTiebaList().then(({ data }) => {
         if (data && data.statusCode === 200) {
           this.tiebaList = data.data
         } else {
@@ -72,7 +101,6 @@ export default {
       font-size: 12px
   .rec-int-content
     width: 100%
-    list-style: none
     display: flex
     justify-content: space-around
     flex-direction: row
@@ -110,4 +138,7 @@ export default {
         border-radius: 5px
         line-height: 28px
         color: #158AF8
+        &.focus
+          border: none
+          color: #bbbbbb
 </style>

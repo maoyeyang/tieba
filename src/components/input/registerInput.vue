@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { register } from 'api/userAPI'
 export default {
   data () {
     const pwdCheckValidate = (rule, value, callback) => {
@@ -77,7 +78,7 @@ export default {
             username: this.formRegister.username,
             password: this.formRegister.password
           }
-          const { data } = await this.$http.post('/register', user)
+          const { data } = await register(user)
           if (data && data.statusCode === 200) {
             this.$Message.success(data.message)
             this.$router.go(-1)

@@ -29,6 +29,7 @@
 </template>
 
 <script>
+import { getUserTieListWithAuth } from 'api/tieAPI'
 import Top from 'components/top'
 export default {
   name: 'TieList',
@@ -53,22 +54,19 @@ export default {
         }
         return item
       })
-    },
-    getTieList () {
-      this.$http.get('/auth/usertielist').then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          let List = data.data
-          this.userTieList = List.map(item => {
-            item.is_add = false
-            item.is_collect = false
-            return item
-          })
-        }
-      })
     }
   },
   created () {
-    this.getTieList()
+    getUserTieListWithAuth().then(({ data }) => {
+      if (data && data.statusCode === 200) {
+        let List = data.data
+        this.userTieList = List.map(item => {
+          item.is_add = false
+          item.is_collect = false
+          return item
+        })
+      }
+    })
   },
   components: {
     Top

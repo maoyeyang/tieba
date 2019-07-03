@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { getFocusBaListWithAuth, reomveFocusBaWithAuth } from 'api/baAPI'
 import { levelByEXP, EXPByMax } from '../../common/methods'
 export default {
   name: 'FocusBaList',
@@ -50,7 +51,7 @@ export default {
   },
   methods: {
     deleteById (id) {
-      this.$http.post('/auth/removefocusba', { ba_id: id }).then(({ data }) => {
+      reomveFocusBaWithAuth({ ba_id: id }).then(({ data }) => {
         if (data && data.statusCode === 200) {
           this.focusBaList = this.focusBaList.filter((item) => item.id !== id)
           this.$Message.success('成功取关该贴吧')
@@ -66,10 +67,9 @@ export default {
       this.$router.go(-1)
     },
     getFocusBaList () {
-      this.$http.get('/auth/focusbalist').then(({ data }) => {
+      getFocusBaListWithAuth().then(({ data }) => {
         if (data && data.statusCode === 200) {
-          this.focusBaList = data.data
-          this.focusBaList = this.focusBaList.map((item) => {
+          this.focusBaList = data.data.map((item) => {
             item.expByMax = EXPByMax(item.exp)
             return item
           })
