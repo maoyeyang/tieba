@@ -46,9 +46,7 @@ export default {
           scrollY: true
         })
         this.scroll.on('touchEnd', (pos) => {
-          // 下拉动作
           if (pos.y > 120) {
-            console.log(1111)
           }
         })
       })

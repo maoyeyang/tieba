@@ -58,18 +58,17 @@ router.beforeEach((to, from, next) => {
   if (isTokenRight) {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
   }
-  // 符合登录条件的url 进行登录
+  // 一定需要登录的url 没有认证信息 进行登录
   if (routerLoginRole.some(route => route === to.path) && !getCookie('username')) {
     next('/login')
     return
   }
   // 要隐藏tabbar的页面进行隐藏
-  if (TabbarRoutes.some(route => (to.path.indexOf(route) > -1))) {
+  if (TabbarRoutes.some(route => (to.path.indexOf(route) === 0))) {
     store.dispatch('hiddenTabbar')
-    next()
-    return
+  } else {
+    store.dispatch('showTabbar')
   }
-  store.dispatch('showTabbar')
   next()
 })
 

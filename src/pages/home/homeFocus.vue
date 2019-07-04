@@ -6,16 +6,26 @@
            src="../../assets/images/moon.png" />
       <p class="text">登录查看吧友最新帖子~</p>
       <button class="button"
-              @click="onLogin">登录</button>
+              @click="toLogin">登录</button>
     </div>
     <div v-if="isLogin"
-         class="is-login">
-      <div>111</div>
+         class="is-login"
+         ref="srcoll">
+      <div>
+        <TieItem :tieInfo="item"
+                 :id="item.id"
+                 :hiddenBa="hiddenBa"
+                 v-for="item in tieInfoList"
+                 :key="item.id"></TieItem>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import BScroll from '@better-scroll/core'
+import { getTieListByFocus } from 'api/tieAPI'
+import TieItem from 'components/tie/tieItem'
 import {
   getCookie
 } from '../../common/methods'
@@ -23,21 +33,44 @@ export default {
   name: 'HomeFocus',
   data () {
     return {
-      isLogin: false
+      isLogin: false,
+      tieInfoList: [],
+      hiddenBa: true
     }
   },
   methods: {
     onIsLogin () {
       if (getCookie('username')) {
         this.isLogin = true
+        getTieListByFocus().then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.tieInfoList = data.data
+            this.initScroll()
+          }
+        })
       }
     },
-    onLogin () {
+    toLogin () {
       this.$router.push({ path: '/login' })
+    },
+    initScroll () {
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs['srcoll'], {
+          click: true,
+          scrollY: true
+        })
+        this.scroll.on('touchEnd', (pos) => {
+          if (pos.y > 120) {
+          }
+        })
+      })
     }
   },
   created () {
     this.onIsLogin()
+  },
+  components: {
+    TieItem
   }
 }
 </script>
@@ -47,6 +80,8 @@ export default {
   padding-top: 56px
   padding-bottom: 60px
   font-size: 20px
+  width: 100%
+  height: 100vh
   position: relative
   .no-login
     position: absolute
@@ -54,7 +89,7 @@ export default {
     left: 50%
     width: 260px
     height: 230px
-    transform: translate(-50%, 50%)
+    transform: translate(-50%, -50%)
     .wait-img
       width: 140px
       height: 130px
@@ -78,4 +113,7 @@ export default {
       outline: none
       &:active
         background-color: #0166C1
+  .is-login
+    height: 100%
+    overflow: hidden
 </style>

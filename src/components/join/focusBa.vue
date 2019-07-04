@@ -19,9 +19,10 @@
       </Dropdown>
     </div>
     <div class="focus-ba-content">
-      <div class="focus-ba-item"
-           v-for="(item, i) in focusbaListByType"
-           :key="i">
+      <router-link :to="`/bainfo/${item.id}`"
+                   class="focus-ba-item"
+                   v-for="(item, i) in focusbaListByType"
+                   :key="i">
         <img class="focus-ba-img"
              :src="item.theme_url">
         <div class="focus-ba-info">
@@ -30,7 +31,7 @@
                   :class="[item.level > 10 ? 'level-red' :(item.level > 5 ? 'level-blue' :'level-cyan')]">{{item.level}}</span></p>
           <p class="focus-ba-des">{{item.description}}</p>
         </div>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -124,6 +125,7 @@ export default {
           display: flex
           line-height: 25px
           justify-content: flex-start
+          color: #000
           .focus-ba-level
             padding: 3px 6px
             margin-left: 5px

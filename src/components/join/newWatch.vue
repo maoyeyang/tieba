@@ -9,14 +9,15 @@
     <div class="new-wacth-wrapper"
          ref="scroll_watch">
       <div class="new-wacth-content">
-        <div class="new-wacth-item"
-             v-for="(item, i) in NewbaList"
-             :key="i">
+        <router-link :to="`/bainfo/${item.id}`"
+                     class="new-wacth-item"
+                     v-for="(item, i) in NewWatchList"
+                     :key="i">
           <img class="new-wacth-img"
-               :src="item.src">
-          <p class="new-wacth-name">{{item.name}}</p>
-          <p class="new-wacth-fans">关注:{{item.fans}}</p>
-        </div>
+               :src="item.theme_url">
+          <p class="new-wacth-name">{{item.ba_name | numberByW}}</p>
+          <p class="new-wacth-fans">关注:{{item.fans_count | numberByW}}</p>
+        </router-link>
       </div>
     </div>
   </div>
@@ -27,11 +28,7 @@ import BScroll from '@better-scroll/core'
 export default {
   data () {
     return {
-      NewbaList: [{ name: '前端', src: require('../../assets/images/img1.png'), fans: '8.1W' },
-        { name: '前端', src: require('../../assets/images/img1.png'), fans: '8.1W' },
-        { name: '前端', src: require('../../assets/images/img1.png'), fans: '8.1W' },
-        { name: '前端', src: require('../../assets/images/img1.png'), fans: '8.1W' },
-        { name: '前端', src: require('../../assets/images/img1.png'), fans: '8.1W' }]
+      NewWatchList: []
     }
   },
   methods: {
@@ -43,7 +40,13 @@ export default {
           scrollX: true
         })
       })
+    },
+    getNewWatchList () {
+      this.NewWatchList = JSON.parse(localStorage.getItem('joinBa'))
     }
+  },
+  created () {
+    this.getNewWatchList()
   },
   mounted () {
     this.initScroll()
@@ -89,15 +92,17 @@ export default {
         background: linear-gradient(#00CBD5, #00CBD5 45%, #ffffff 45%, #ffffff)
         box-shadow: 1px 0 7px #DCDBDB
         .new-wacth-img
-          width: 40px
-          height: 40px
+          width: 50px
+          height: 50px
           border: 2px solid #fff
-          margin-top: 40px
+          object-fit: cover
+          margin-top: 30px
           border-radius: 20px
         .new-wacth-name
           width: 100%
           font-size: 16px
           height: 25px
+          color: #000
         .new-wacth-fans
           width: 100%
           height: 25px

@@ -14,7 +14,7 @@
     </div>
     <div class="focusba-content">
       <router-link tag="div"
-                   :to='`/${item.id}/bainfo`'
+                   :to='`/bainfo/${item.id}`'
                    class="item"
                    v-for="(item,i) in focusBaList"
                    :key="i">

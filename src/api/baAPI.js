@@ -15,9 +15,13 @@ export const addFocusBaWithAuth = async (data) => {
   const res = await axios.post('/auth/addfocusba', data)
   return res
 }
-
 // 获取推荐吧的列表
 export const getTiebaList = async () => {
   const res = await axios.get('/api/tiebalist')
+  return res
+}
+// 获取贴吧信息ById
+export const getBaInfo = async (id) => {
+  const res = await axios.get(`/api/bainfo/${id}`)
   return res
 }

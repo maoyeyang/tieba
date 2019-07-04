@@ -1,33 +1,51 @@
 <template>
   <div class="home-content">
-    <TieItem :tieInfo="tieInfo"
-             :hiddenBa="hiddenBa"></TieItem>
+    <div ref="srcoll"
+         class="home-swiper">
+      <div>
+        <TieItem :tieInfo="item"
+                 :id="item.id"
+                 :hiddenBa="hiddenBa"
+                 v-for="item in tieInfoList"
+                 :key="item.id"></TieItem>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import BScroll from '@better-scroll/core'
+import { getTieList } from 'api/tieAPI'
 import TieItem from 'components/tie/tieItem'
 export default {
   name: 'HomeContent',
   data () {
     return {
-      tieInfo: {
-        id: 1,
-        avatar_url: 'http://192.168.43.114:3000/images/user_images/avatar_default.png',
-        avatar_url1: 'http://192.168.43.114:3000/images/user_images/avatar_1.jpeg',
-        commentsCount: 99,
-        avatar_url2: 'http://192.168.43.114:3000/images/user_images/avatar_2.jpeg',
-        nickname: 'adadawdada',
-        title: '我要玩部落冲突',
-        ba_id: 33,
-        user_id: 3,
-        ba_name: '部落冲突',
-        likes: 23,
-        type: true,
-        content: '我要玩部落冲突 我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部我要玩部落冲突 我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突 我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突 我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突落冲突我要玩部落冲突我要玩部落冲突我要玩部落冲突'
-      },
-      hiddenBa: false
+      tieInfoList: [],
+      hiddenBa: true
     }
+  },
+  methods: {
+    initScroll () {
+      this.$nextTick(() => {
+        this.scroll = new BScroll(this.$refs['srcoll'], {
+          click: true,
+          scrollY: true
+        })
+        this.scroll.on('touchEnd', (pos) => {
+          if (pos.y > 120) {
+          }
+        })
+      })
+    }
+  },
+  created () {
+    getTieList().then(({ data }) => {
+      if (data && data.statusCode === 200) {
+        this.tieInfoList = data.data
+        this.initScroll()
+      }
+    })
   },
   components: {
     TieItem
@@ -38,7 +56,11 @@ export default {
 <style lang="stylus" scoped>
 .home-content
   width: 100%
+  height: 100vh
   padding-top: 56px
   padding-bottom: 60px
   font-size: 20px
+  .home-swiper
+    height: 100%
+    overflow: hidden
 </style>

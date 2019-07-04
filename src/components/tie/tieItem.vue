@@ -16,19 +16,18 @@
       <p class="tie-item-content">{{tieInfo.content}}</p>
     </div>
     <div class="tie-item-row-3">
-      <img class="tie-item-img"
-           :src="tieInfo.avatar_url"
-           preview="1" />
-      <img class="tie-item-img"
-           :src="tieInfo.avatar_url1"
-           preview="1" />
-      <img class="tie-item-img"
-           :src="tieInfo.avatar_url2"
-           preview="1" />
-      <img class="tie-item-img"
-           :src="tieInfo.avatar_url2"
-           style="display:none"
-           preview="1" />
+      <div v-for="(item,i) in tieInfo.images"
+           :key='i'
+           class="tie-item-imglist">
+        <img class="tie-item-img"
+             :src="item"
+             :preview="id"
+             v-show="i < 3"
+             :ref="`img-${i}`" />
+        <div class="tie-item-mask"
+             @click.stop.prevent=""
+             v-if="(i === 2)  && (tieInfo.images.length > 3)">+{{tieInfo.images.length-3}}</div>
+      </div>
     </div>
     <div class="tie-item-row-4"
          v-if="hiddenBa">
@@ -41,7 +40,7 @@
         <div class="tie-item-collect"><span class="icon-star"></span>收藏</div>
         <router-link :to="`/bainfo/${tieInfo.ba_id}`"
                      tag="span"
-                     class="tie-item-cmt"><span class="icon-chat"></span>{{tieInfo.commentsCount}}</router-link>
+                     class="tie-item-cmt"><span class="icon-chat"></span>{{tieInfo.comments_count}}</router-link>
       </div>
       <div class="tie-item-right">
         <span class="icon-like"></span>
@@ -54,8 +53,9 @@
 
 <script>
 export default {
-  props: ['tieInfo', 'hiddenBa']
-
+  props: ['tieInfo', 'hiddenBa', 'id'],
+  methods: {
+  }
 }
 </script>
 
@@ -108,11 +108,25 @@ export default {
     padding: 2px 0
     display: flex
     justify-content: space-around
-    img
-      width: 26vw
-      height: 26vw
-      object-fit: cover
-      display: inline-block
+    .tie-item-imglist
+      position: relative
+      img
+        width: 26vw
+        height: 26vw
+        object-fit: cover
+        display: inline-block
+      .tie-item-mask
+        background-color: rgba(0, 0, 0, 0.5)
+        z-index: 9
+        font-size: 30px
+        color: #fff
+        width: 26vw
+        height: 26vw
+        position: absolute
+        text-align: center
+        line-height: 26vw
+        top: 0
+        left: 0
   .tie-item-row-4
     display: flex
     justify-content: flex-start

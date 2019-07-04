@@ -6,7 +6,7 @@
             @click="change">换一批</span>
     </div>
     <div class="rec-int-content">
-      <router-link :to="`/${item.id}/bainfo`"
+      <router-link :to="`/bainfo/${item.id}`"
                    tag="div"
                    v-for="(item,i) in tiebaListBy4"
                    :key="i"

@@ -22,5 +22,6 @@ export const TabbarRoutes = [
   '/setting',
   '/userhome',
   '/useredit',
-  '/userinfo/'
+  '/userinfo/',
+  '/bainfo/'
 ]
