@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { getBaInfo } from 'api/baAPI'
+import { getBaInfo } from 'api'
 export default {
   name: 'BaInfo',
   data () {
@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     setLocalStorage () {
-      // 把看过的吧  存入localStorage
       let newWatchList = JSON.parse(localStorage.getItem('joinBa'))
       const obj = {
         id: this.baInfo.id,
@@ -25,7 +24,7 @@ export default {
       }
       if (newWatchList) {
         newWatchList = newWatchList.filter(item => item.id !== obj.id)
-        if (newWatchList.length >= 10) {
+        if (newWatchList.length >= 20) {
           newWatchList.pop()
         }
         newWatchList.unshift(obj)

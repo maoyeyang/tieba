@@ -31,6 +31,7 @@ export default {
 <style lang="stylus" scoped>
 .login
   width: 100%
+  padding-top: 56px
   .logo
     width: 200px
     height: 70px

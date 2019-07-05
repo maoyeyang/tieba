@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { register } from 'api/userAPI'
+import { register } from 'api'
 export default {
   data () {
     const pwdCheckValidate = (rule, value, callback) => {

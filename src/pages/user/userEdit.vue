@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { getUserInfoWithAuth, editUserInfoWithAuth, UploadUserImgWithAuth } from 'api/userAPI'
+import { getUserInfoWithAuth, editUserInfoWithAuth, UploadUserImgWithAuth } from 'api'
 import Top from 'components/top'
 export default {
   name: 'UserEdit',

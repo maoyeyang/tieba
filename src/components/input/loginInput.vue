@@ -36,8 +36,8 @@
 </template>
 
 <script>
-import { login } from 'api/userAPI'
-import { setCookie } from '../../common/methods'
+import { login } from 'api'
+import { setCookie } from 'common/methods'
 export default {
   data () {
     return {

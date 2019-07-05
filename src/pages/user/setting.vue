@@ -7,6 +7,7 @@
                    class="setting-content-item">
         我的账号:&nbsp;&nbsp;{{userInfo.username}}
       </router-link>
+      <div class="setting-content-item jcsb"><span>版本信息</span><span>1.0.0</span></div>
     </div>
     <div class="setting-exit"
          @click="exit">
@@ -16,11 +17,11 @@
 </template>
 
 <script>
-import { getUserInfoWithAuth } from 'api/userAPI'
+import { getUserInfoWithAuth } from 'api'
 import Top from 'components/top'
 import {
   delCookie
-} from '../../common/methods'
+} from 'common/methods'
 export default {
   name: 'Setting',
   data () {
@@ -94,11 +95,17 @@ export default {
         margin-top: 5px
         display: inline-block
   .setting-content
-    padding: 50px 0 15px 0
+    padding: 50px 0 55px 0
     .setting-content-item
       background-color: #fff
+      height: 50px
+      line-height: 40px
       font-size: 16px
       padding: 5px 15px
+      border-bottom: 1px solid #ccc
+      &.jcsb
+        display: flex
+        justify-content: space-between
   .setting-exit
     width: 100%
     height: 50px

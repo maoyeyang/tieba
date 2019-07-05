@@ -21,7 +21,7 @@
         <img class="img"
              :src="item.theme_url">
         <div class="center">
-          <p class="name">{{item.ba_name}}
+          <p class="name">{{item.ba_name}}吧
             <span class="level"
                   :class="[levelarr[i] > 9 ? 'level-red' :(levelarr[i] > 3 ? 'level-blue' :'level-cyan')]">
               {{levelarr[i]}}
@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import { getFocusBaListWithAuth, reomveFocusBaWithAuth } from 'api/baAPI'
-import { levelByEXP, EXPByMax } from '../../common/methods'
+import { getFocusBaListWithAuth, reomveFocusBaWithAuth } from 'api'
+import { levelByEXP, EXPByMax } from 'common/methods'
 export default {
   name: 'FocusBaList',
   data () {

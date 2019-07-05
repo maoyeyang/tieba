@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { getUserInfoWithAuth } from 'api/userAPI'
+import { getUserInfoWithAuth } from 'api'
 import Top from 'components/top'
 export default {
   name: 'UserHome',

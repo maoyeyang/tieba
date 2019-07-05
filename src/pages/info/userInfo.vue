@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import { getCookie } from '../../common/methods'
-import { getUserInfo, reomveFocusWithAuth, addFocusWithAuth } from 'api/userAPI'
+import { getCookie } from 'common/methods'
+import { getUserInfo, reomveFocusWithAuth, addFocusWithAuth } from 'api'
 import Top from 'components/top'
 export default {
   name: 'UserInfo',

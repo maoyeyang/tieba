@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { getUserFansListWithAuth, reomveFocusWithAuth, addFocusWithAuth } from 'api/userAPI'
+import { getUserFansListWithAuth, reomveFocusWithAuth, addFocusWithAuth } from 'api'
 import Top from 'components/top'
 export default {
   name: 'FansList',

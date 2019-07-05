@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import searchInput from 'components/search/searchInput'
+import searchInput from 'components/input/searchInput'
 import recommendInterest from 'components/join/recommendInterest'
 export default {
   name: 'JoinRecommend',

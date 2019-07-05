@@ -79,7 +79,7 @@
           <p class="user-mid-right"></p>
         </i-col>
       </router-link>
-      <router-link to="/collection"
+      <router-link to="/browsehistory"
                    tag="div"
                    class="user-mid-item">
         <i-col span="4">
@@ -109,7 +109,7 @@
 </template>
 
 <script>
-import { getUserInfoWithAuth } from 'api/userAPI'
+import { getUserInfoWithAuth } from 'api'
 export default {
   name: 'User',
   data () {

@@ -33,20 +33,7 @@
          v-if="hiddenBa">
       <router-link :to="`/bainfo/${tieInfo.ba_id}`"
                    tag="p"
-                   class="tie-item-ba">{{tieInfo.ba_name}}</router-link>
-    </div>
-    <div class="tie-item-row-5">
-      <div class="tie-item-left">
-        <div class="tie-item-collect"><span class="icon-star"></span>收藏</div>
-        <router-link :to="`/bainfo/${tieInfo.ba_id}`"
-                     tag="span"
-                     class="tie-item-cmt"><span class="icon-chat"></span>{{tieInfo.comments_count}}</router-link>
-      </div>
-      <div class="tie-item-right">
-        <span class="icon-like"></span>
-        <span class="likes">{{tieInfo.likes}}</span>
-        <span class="icon-unlike"></span>
-      </div>
+                   class="tie-item-ba">{{tieInfo.ba_name}}吧</router-link>
     </div>
   </router-link>
 </template>
@@ -62,7 +49,7 @@ export default {
 <style lang="stylus" scoped>
 .tie-item
   width: 100%
-  padding: 0 20px 5px 20px
+  padding: 0 20px 10px 20px
   border-bottom: 4px solid #ccc
   .tie-item-row-1
     display: flex
@@ -107,9 +94,10 @@ export default {
     width: 100%
     padding: 2px 0
     display: flex
-    justify-content: space-around
+    justify-content: flex-start
     .tie-item-imglist
       position: relative
+      margin-right: 3vw
       img
         width: 26vw
         height: 26vw
@@ -138,68 +126,4 @@ export default {
       height: 25px
       display: block
       padding: 0 5px
-  .tie-item-row-5
-    margin-top: 5px
-    width: 100%
-    display: flex
-    justify-content: space-between
-    .tie-item-left
-      display: flex
-      justify-content: flex-start
-      .tie-item-collect
-        font-size: 14px
-        display: flex
-        height: 25px
-        line-height: 25px
-        justify-content: flex-start
-        .icon-star
-          width: 25px
-          margin-right: 3px
-          height: 25px
-          display: block
-          background-size: 22px 22px
-          background-repeat: no-repeat
-          background-position: top center
-          background-image: url('../../assets/icon/star.png')
-          &.active
-            background-image: url('../../assets/icon/star_active.png')
-      .tie-item-cmt
-        margin-left: 15px
-        line-height: 25px
-        height: 25px
-        font-size: 14px
-        display: flex
-        justify-content: flex-start
-        .icon-chat
-          width: 25px
-          margin-right: 3px
-          height: 25px
-          display: block
-          background-size: 20px 20px
-          background-repeat: no-repeat
-          background-position: center 20%
-          background-image: url('../../assets/icon/chat.png')
-    .tie-item-right
-      display: flex
-      justify-content: flex-start
-      .icon-like
-        width: 25px
-        height: 25px
-        display: block
-        background-size: 20px 20px
-        background-repeat: no-repeat
-        background-position: top center
-        background-image: url('../../assets/icon/like.png')
-      .likes
-        font-size: 16px
-        line-height: 25px
-        margin: 0 3px
-      .icon-unlike
-        width: 25px
-        height: 25px
-        display: block
-        background-size: 20px 20px
-        background-repeat: no-repeat
-        background-position: bottom center
-        background-image: url('../../assets/icon/unlike.png')
 </style>

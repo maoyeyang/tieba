@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import { getFocusBaListWithAuth } from 'api/baAPI'
-import { levelByEXP } from '../../common/methods'
+import { getFocusBaListWithAuth } from 'api'
+import { levelByEXP } from 'common/methods'
 export default {
   data () {
     return {

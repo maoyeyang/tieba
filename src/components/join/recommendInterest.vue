@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import { addFocusBaWithAuth, getTiebaList } from 'api/baAPI'
-import { getCookie } from '../../common/methods'
+import { addFocusBaWithAuth, getTiebaList } from 'api'
+import { getCookie } from 'common/methods'
 export default {
   data () {
     return {

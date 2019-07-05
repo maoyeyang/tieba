@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { getUserFocusListWithAuth, reomveFocusWithAuth } from 'api/userAPI'
+import { getUserFocusListWithAuth, reomveFocusWithAuth } from 'api'
 import Top from 'components/top'
 export default {
   name: 'FocusList',

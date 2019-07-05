@@ -4,10 +4,13 @@
       <h3 class="new-watch-top-title">
         最近逛的吧
       </h3>
-      <span class="new-watch-top-icon"></span>
+      <span class="new-watch-top-icon"
+            :class="show ? '':'close'"
+            @click="showAndHidden"></span>
     </div>
     <div class="new-wacth-wrapper"
-         ref="scroll_watch">
+         ref="scroll_watch"
+         v-show="show">
       <div class="new-wacth-content">
         <router-link :to="`/bainfo/${item.id}`"
                      class="new-wacth-item"
@@ -28,10 +31,14 @@ import BScroll from '@better-scroll/core'
 export default {
   data () {
     return {
-      NewWatchList: []
+      NewWatchList: [],
+      show: true
     }
   },
   methods: {
+    showAndHidden () {
+      this.show = !this.show
+    },
     initScroll () {
       this.$nextTick(() => {
         this.scroll = new BScroll(this.$refs['scroll_watch'], {
@@ -72,6 +79,8 @@ export default {
       display: block
       background-size: cover
       margin-right: 15px
+      &.close
+        background-image: url('../../assets/icon/eye_close.png')
   .new-wacth-wrapper
     width: 100%
     margin-top: 10px

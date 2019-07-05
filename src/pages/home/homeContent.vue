@@ -15,7 +15,7 @@
 
 <script>
 import BScroll from '@better-scroll/core'
-import { getTieList } from 'api/tieAPI'
+import { getTieList } from 'api'
 import TieItem from 'components/tie/tieItem'
 export default {
   name: 'HomeContent',

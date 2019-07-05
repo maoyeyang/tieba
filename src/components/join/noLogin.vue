@@ -19,7 +19,6 @@ export default {
   },
   methods: {
     onLogin () {
-      console.log(111)
       this.$emit('onLogin')
     }
   }

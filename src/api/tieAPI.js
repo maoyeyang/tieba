@@ -16,3 +16,9 @@ export const getTieListByFocus = async () => {
   const res = await axios.get('/auth/userfocustielist')
   return res
 }
+
+// 获取关注人的帖子的列表
+export const getTieInfo = async (id) => {
+  const res = await axios.get(`/api/tieinfo/${id}`)
+  return res
+}

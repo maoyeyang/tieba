@@ -6,6 +6,7 @@ import FocusBaList from 'pages/user/focusBaList'
 import TieList from 'pages/user/tieList'
 import UserHome from 'pages/user/userHome'
 import UserEdit from 'pages/user/userEdit'
+import BrowseHistory from 'pages/user/browseHistory'
 
 export default [{
   path: '/user',
@@ -39,4 +40,8 @@ export default [{
   path: '/useredit',
   name: 'UserEdit',
   component: UserEdit
+}, {
+  path: '/browsehistory',
+  name: 'BrowseHistory',
+  component: BrowseHistory
 }]

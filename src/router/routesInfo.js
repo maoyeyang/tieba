@@ -1,5 +1,6 @@
 import UserInfo from 'pages/info/userInfo'
 import BaInfo from 'pages/info/baInfo'
+import TieInfo from 'pages/info/tieInfo'
 
 export default [{
   path: '/userinfo/:id',
@@ -9,4 +10,8 @@ export default [{
   path: '/bainfo/:id',
   name: 'BaInfo',
   component: BaInfo
+}, {
+  path: '/tieinfo/:id',
+  name: 'TieInfo',
+  component: TieInfo
 }]

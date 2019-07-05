@@ -53,7 +53,7 @@
 <script>
 import {
   getCookie
-} from '../common/methods'
+} from 'common/methods'
 export default {
   name: 'Tabbar',
   data () {
