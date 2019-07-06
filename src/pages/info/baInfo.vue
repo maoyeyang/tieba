@@ -46,6 +46,12 @@
               :class="!option ?'active':''">精华</span>
       </div>
     </div>
+    <div class="tie">
+      <TieItem :tieInfo="item"
+               :hiddenBa="false"
+               v-for="item in tieInfoList"
+               :key="item.id"></TieItem>
+    </div>
   </div>
 </template>
 
@@ -58,7 +64,8 @@ export default {
     return {
       baInfo: {},
       option: true,
-      isScroll: false
+      isScroll: false,
+      tieInfoList: []
     }
   },
   methods: {

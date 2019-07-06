@@ -29,7 +29,8 @@
                      class="tie-item-ba">{{tieInfo.ba_name}}吧</router-link>
       </div>
       <div class="tie-item-row-5">
-        <span class="tie-item-collect">
+        <span class="tie-item-collect"
+              @click="collect">
           <span class="icon-collect"
                 :class="tieInfo.isCollect ? 'active':''"></span>
           收藏
@@ -38,7 +39,8 @@
           <span class="icon-chat"></span>
           {{tieInfo.comments_count >0? tieInfo.comments_count :"回复"}}
         </span>
-        <span class="tie-item-like">
+        <span class="tie-item-like"
+              @click="like">
           <span class="icon-like"
                 :class="tieInfo.isLike ? 'active':''"></span>
           {{tieInfo.likes}}
@@ -49,7 +51,8 @@
 </template>
 
 <script>
-import { getTieInfo } from 'api'
+import { likeTieWithAuth, unLikeTieWithAuth, collectTieWithAuth,
+  addFocusWithAuth, removeCollectTieWithAuth, getTieInfo} from 'api'
 import { getCookie } from 'common/methods'
 import Top from 'components/top'
 export default {
@@ -61,7 +64,54 @@ export default {
   },
   methods: {
     focus () {
-
+      addFocusWithAuth({ focus_id: this.tieInfo.user_id }).then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.tieInfo.isFocus = true
+          return this.$Message.success('关注成功')
+        } else {
+          return this.$Message.error('关注失败')
+        }
+      })
+    },
+    collect () {
+      if (this.tieInfo.isCollect) {
+        removeCollectTieWithAuth(this.tieInfo.id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.tieInfo.isCollect = false
+          } else {
+            this.$Message.success('取消收藏失败')
+          }
+        })
+      } else {
+        collectTieWithAuth(this.tieInfo.id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.tieInfo.isCollect = true
+          } else {
+            this.$Message.success('收藏失败')
+          }
+        })
+      }
+    },
+    like () {
+      if (this.tieInfo.isLike) {
+        unLikeTieWithAuth(this.tieInfo.id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.tieInfo.isLike = false
+            this.tieInfo.likes -= 1
+          } else {
+            this.$Message.success('取消点赞失败')
+          }
+        })
+      } else {
+        likeTieWithAuth(this.tieInfo.id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.tieInfo.isLike = true
+            this.tieInfo.likes += 1
+          } else {
+            this.$Message.success('点赞失败')
+          }
+        })
+      }
     },
     setLocalStorage () {
       let arr = JSON.parse(localStorage.getItem('joinTie'))

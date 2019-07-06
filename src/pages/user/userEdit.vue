@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { getUserInfoWithAuth, editUserInfoWithAuth, UploadUserImgWithAuth } from 'api'
+import { getUserInfoWithAuth, editUserInfoWithAuth } from 'api'
 import Top from 'components/top'
 export default {
   name: 'UserEdit',
@@ -90,23 +90,20 @@ export default {
       this.$store.dispatch('showMask')
     },
     async update () {
-      const { data } = await editUserInfoWithAuth(this.userInfo)
-      if (data.statusCode !== 200) {
-        this.$Message.error(data.message)
-        return
-      } else {
-        this.$Message.success(data.message)
-      }
+      let fd = new FormData()
+      fd.append('nickname', this.userInfo.nickname)
+      fd.append('sex', this.userInfo.sex)
+      fd.append('old', this.userInfo.old)
+      fd.append('new', this.userInfo.new)
+      fd.append('introduction', this.userInfo.introduction)
       if (this.file) {
-        let fd = new FormData()
         fd.append('file', this.file)
-        fd.append('img_name', this.userInfo.avatar_url)
-        const { data: res } = await UploadUserImgWithAuth(fd)
-        if (res && res.statusCode === 200) {
-          this.$Message.success(res.message)
-        } else {
-          this.$Message.error(res.message)
-        }
+      }
+      const { data } = await editUserInfoWithAuth(fd)
+      if (data && data.statusCode === 200) {
+        this.$Message.success(data.message)
+      } else {
+        this.$Message.error(data.message)
       }
     },
     handleUpload (file) {

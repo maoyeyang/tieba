@@ -6,7 +6,7 @@
     <div class="tie-content">
       <router-link tag="div"
                    :to="`/tieinfo/${item.id}`"
-                   v-for="item in userTieList"
+                   v-for="(item,i) in userTieList"
                    :key="item.id"
                    class="item">
         <div class="time">
@@ -19,8 +19,22 @@
             <p class="text">{{item.title}}</p>
           </div>
           <div class="item-bottom">
-            <span class="cmt"><span class="icon-chat"></span>{{(item.comments_count === 0) ? '回复' :item.comments_count}}</span>
-            <span class="like"><span class="icon-like"></span>{{item.likes}}</span>
+            <span class="collect"
+                  @click.stop.prevent="collect(i)">
+              <span class="icon-collect"
+                    :class="item.isCollect ? 'active':''"></span>
+              收藏
+            </span>
+            <span class="cmt">
+              <span class="icon-chat"></span>
+              {{(item.comments_count === 0) ? '回复' :item.comments_count}}
+            </span>
+            <span class="like"
+                  @click.stop.prevent="like(i)">
+              <span class="icon-like"
+                    :class="item.isLike ? 'active':''"></span>
+              {{item.likes}}
+            </span>
           </div>
         </div>
       </router-link>
@@ -29,7 +43,7 @@
 </template>
 
 <script>
-import { getUserTieListWithAuth } from 'api'
+import { getUserTieListWithAuth, likeTieWithAuth, collectTieWithAuth, removeCollectTieWithAuth, unLikeTieWithAuth } from 'api'
 import Top from 'components/top'
 export default {
   name: 'TieList',
@@ -39,32 +53,51 @@ export default {
     }
   },
   methods: {
-    add (id) {
-      this.userTieList = this.userTieList.map((item) => {
-        if (item.id === id) {
-          item.is_add = !item.is_add
-        }
-        return item
-      })
+    collect (i) {
+      if (this.userTieList[i].isCollect) {
+        removeCollectTieWithAuth(this.userTieList[i].id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.userTieList[i].isCollect = false
+          } else {
+            this.$Message.success('取消收藏失败')
+          }
+        })
+      } else {
+        collectTieWithAuth(this.userTieList[i].id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.userTieList[i].isCollect = true
+          } else {
+            this.$Message.success('收藏失败')
+          }
+        })
+      }
     },
-    Collect (id) {
-      this.userTieList = this.userTieList.map((item) => {
-        if (item.id === id) {
-          item.is_collect = !item.is_collect
-        }
-        return item
-      })
+    like (i) {
+      if (this.userTieList[i].isLike) {
+        unLikeTieWithAuth(this.userTieList[i].id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.userTieList[i].isLike = false
+            this.userTieList[i].likes -= 1
+          } else {
+            this.$Message.success('取消点赞失败')
+          }
+        })
+      } else {
+        likeTieWithAuth(this.userTieList[i].id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.userTieList[i].isLike = true
+            this.userTieList[i].likes += 1
+          } else {
+            this.$Message.success('点赞失败')
+          }
+        })
+      }
     }
   },
   created () {
     getUserTieListWithAuth().then(({ data }) => {
       if (data && data.statusCode === 200) {
-        let List = data.data
-        this.userTieList = List.map(item => {
-          item.is_add = false
-          item.is_collect = false
-          return item
-        })
+        this.userTieList = data.data
       }
     })
   },
@@ -90,7 +123,8 @@ export default {
       .time
         text-align: center
         .day
-          font-size: 26px
+          margin-top: 5px
+          font-size: 30px
         .month
           font-size: 16px
           color: #888
@@ -110,32 +144,49 @@ export default {
         font-size: 14px
         display: flex
         justify-content: space-between
+        .collect
+          display: flex
+          font-size: 14px
+          justify-content: flex-start
+          line-height: 30px
+          .icon-collect
+            width: 30px
+            height: 30px
+            display: block
+            background-image: url('../../assets/icon/star.png')
+            background-repeat: no-repeat
+            background-position: center center
+            background-size: 25px 25px
+            &.active
+              background-image: url('../../assets/icon/star_active.png')
         .cmt
-          margin-left: 30px
           font-size: 14px
           display: flex
-          line-height: 27px
+          line-height: 30px
           justify-content: flex-start
           .icon-chat
             background-image: url('../../assets/icon/chat.png')
-            background-size: 20px 20px
+            background-size: 25px 25px
             background-repeat: no-repeat
             background-position: center center
-            width: 25px
-            height: 25px
+            width: 30px
+            height: 30px
             display: block
         .like
           margin-right: 50px
           display: flex
-          line-height: 27px
+          font-size: 14px
+          line-height: 30px
           justify-content: flex-start
           .icon-like
             background-image: url('../../assets/icon/heart.png')
-            background-size: 20px 20px
+            background-size: 25px 25px
             margin-right: 5px
             background-repeat: no-repeat
             background-position: center center
-            width: 25px
-            height: 25px
+            width: 30px
+            height: 30px
             display: block
+            &.active
+              background-image: url('../../assets/icon/heart_active.png')
 </style>

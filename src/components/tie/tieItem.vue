@@ -21,7 +21,7 @@
            class="tie-item-imglist">
         <img class="tie-item-img"
              :src="item"
-             :preview="id"
+             :preview="tieInfo.id"
              v-show="i < 3" />
         <div class="tie-item-mask"
              @click.stop.prevent=""
@@ -34,13 +34,72 @@
                    tag="p"
                    class="tie-item-ba">{{tieInfo.ba_name}}吧</router-link>
     </div>
+    <div class="tie-item-row-5">
+      <span class="tie-item-collect"
+            @click.stop.prevent="collect">
+        <span class="icon-collect"
+              :class="tieInfo.isCollect ? 'active':''"></span>
+        收藏
+      </span>
+      <span class="tie-item-chat">
+        <span class="icon-chat"></span>
+        {{tieInfo.comments_count >0? tieInfo.comments_count :"回复"}}
+      </span>
+      <span class="tie-item-like"
+            @click.stop.prevent="like">
+        <span class="icon-like"
+              :class="tieInfo.isLike ? 'active':''"></span>
+        {{tieInfo.likes}}
+      </span>
+    </div>
   </router-link>
 </template>
 
 <script>
+import { likeTieWithAuth, unLikeTieWithAuth, collectTieWithAuth, removeCollectTieWithAuth } from 'api'
 export default {
-  props: ['tieInfo', 'hiddenBa', 'id'],
+  props: ['tieInfo', 'hiddenBa'],
   methods: {
+    collect () {
+      if (this.tieInfo.isCollect) {
+        removeCollectTieWithAuth(this.tieInfo.id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.tieInfo.isCollect = false
+          } else {
+            this.$Message.success('取消收藏失败')
+          }
+        })
+      } else {
+        collectTieWithAuth(this.tieInfo.id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.tieInfo.isCollect = true
+          } else {
+            this.$Message.success('收藏失败')
+          }
+        })
+      }
+    },
+    like () {
+      if (this.tieInfo.isLike) {
+        unLikeTieWithAuth(this.tieInfo.id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.tieInfo.isLike = false
+            this.tieInfo.likes -= 1
+          } else {
+            this.$Message.success('取消点赞失败')
+          }
+        })
+      } else {
+        likeTieWithAuth(this.tieInfo.id).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.tieInfo.isLike = true
+            this.tieInfo.likes += 1
+          } else {
+            this.$Message.success('点赞失败')
+          }
+        })
+      }
+    }
   }
 }
 </script>
@@ -126,4 +185,52 @@ export default {
       height: 25px
       display: block
       padding: 0 5px
+  .tie-item-row-5
+    display: flex
+    height: 30px
+    line-height: 30px
+    font-size: 16px
+    justify-content: space-between
+    margin-top: 3px
+    .tie-item-collect
+      display: flex
+      justify-content: flex-start
+      line-height: 30px
+      .icon-collect
+        width: 30px
+        height: 30px
+        display: block
+        background-image: url('../../assets/icon/star.png')
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: 25px 25px
+        &.active
+          background-image: url('../../assets/icon/star_active.png')
+    .tie-item-chat
+      display: flex
+      justify-content: flex-start
+      line-height: 30px
+      .icon-chat
+        width: 30px
+        height: 30px
+        display: block
+        background-image: url('../../assets/icon/chat.png')
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: 25px 25px
+    .tie-item-like
+      display: flex
+      justify-content: flex-start
+      line-height: 30px
+      margin-right: 50px
+      .icon-like
+        width: 30px
+        height: 30px
+        display: block
+        background-image: url('../../assets/icon/heart.png')
+        background-repeat: no-repeat
+        background-position: center center
+        background-size: 25px 25px
+        &.active
+          background-image: url('../../assets/icon/heart_active.png')
 </style>

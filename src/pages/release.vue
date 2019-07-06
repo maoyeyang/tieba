@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { getBaInfo } from 'api'
+import { getBaInfo, addTieWithAuth } from 'api'
 export default {
   name: 'Release',
   data () {
@@ -57,8 +57,23 @@ export default {
       this.imgList.splice(i, 1)
       this.files.splice(i, 1)
     },
-    release () {
-
+    async release () {
+      let fd = new FormData()
+      fd.append('ba_id', this.baInfo.id)
+      fd.append('content', this.tieInfo.content)
+      fd.append('title', this.tieInfo.title)
+      if (this.files) {
+        for (let i = 0; i < this.files.length; i++) {
+          fd.append('file[' + i + ']', this.files[i])
+        }
+      }
+      const { data } = await addTieWithAuth(fd)
+      if (data && data.statusCode === 200) {
+        this.$Message.success(data.message)
+        this.$router.go(-1)
+      } else {
+        this.$Message.error(data.message)
+      }
     },
     goBack () {
       this.$router.go(-1)

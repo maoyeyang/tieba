@@ -4,7 +4,6 @@
          class="home-swiper">
       <div>
         <TieItem :tieInfo="item"
-                 :id="item.id"
                  :hiddenBa="hiddenBa"
                  v-for="item in tieInfoList"
                  :key="item.id"></TieItem>

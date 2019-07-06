@@ -12,12 +12,7 @@ export const getUserInfo = async (id) => {
 }
 // 修改用户信息 (验证)
 export const editUserInfoWithAuth = async (data) => {
-  const res = await axios.post('/auth/useredit', data)
-  return res
-}
-// 上传用户头像 (验证)
-export const UploadUserImgWithAuth = async (data) => {
-  const res = await axios.post('/auth/upload_avatar', data, {
+  const res = await axios.post('/auth/useredit', data, {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
