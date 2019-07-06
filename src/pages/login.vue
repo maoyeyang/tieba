@@ -24,6 +24,9 @@ export default {
   components: {
     LoginInput,
     Top
+  },
+  beforeCreate () {
+    this.$store.dispatch('hiddenMask')
   }
 }
 </script>

@@ -110,8 +110,8 @@ export default {
       }
     },
     handleUpload (file) {
-      const reg = /\.jpg$|\.jpeg$|\.gif$|\.png$/i
-      if (!reg.test(file.name)) {
+      const reg = /jpg$|jpeg$|gif$|png$/i
+      if (!reg.test(file.type)) {
         this.$Message.warning('这不是一张图片,请选择正确图片类型!!!')
         return false
       }

@@ -40,13 +40,13 @@
     </router-link>
     <div class="mask-bottom"
          v-show="this.$store.getters.isMask">
-      <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/font.png" /></span><span class="mask-item-text">文字</span></div>
+      <router-link tag="div"
+                   :to="`/release/0`"
+                   class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/font.png" /></span><span class="mask-item-text">文字</span></router-link>
       <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/camera.png" /></span><span class="mask-item-text">拍摄</span></div>
       <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/image.png" /></span><span class="mask-item-text">相册</span></div>
       <div class="mask-item"><span class="mask-item-icon"><img src="../assets/icon/live.png" /></span><span class="mask-item-text">直播</span></div>
     </div>
-    <!-- <div class="mask"
-         v-show="isMask"></div> -->
   </nav>
 </template>
 
@@ -142,7 +142,6 @@ export default {
       height: 50px
       line-height: 52px
       margin: 0 auto
-      background-color: blue
       border-radius: 25%
       background: linear-gradient(to right, #02B0F0, #007BEE)
       box-shadow: 2px 2px 15px #95C9FF
@@ -172,7 +171,7 @@ export default {
     padding-top: 40px
     .mask-item
       width: 100%
-      height: 240px
+      height: 100px
       text-align: center
       .mask-item-icon
         width: 60px
@@ -180,7 +179,7 @@ export default {
         display: block
         margin: 0 auto
         background-color: #fff
-        border-radius: 15px
+        border-radius: 20px
         img
           width: 40px
           height: 40px

@@ -19,6 +19,7 @@ import routesInfo from './routesInfo'
 import Login from 'pages/login'
 import Register from 'pages/register'
 import Search from 'pages/search'
+import Release from 'pages/release'
 
 Vue.use(Router)
 
@@ -44,6 +45,10 @@ const router = new Router({
     path: '/search',
     name: 'Search',
     component: Search
+  }, {
+    path: '/release/:id',
+    name: 'Release',
+    component: Release
   }
   ],
   linkActiveClass: 'active'
@@ -59,7 +64,7 @@ router.beforeEach((to, from, next) => {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
   }
   // 一定需要登录的url 没有认证信息 进行登录
-  if (routerLoginRole.some(route => route === to.path) && !getCookie('username')) {
+  if (routerLoginRole.some(route => to.path.indexOf(route) === 0) && !getCookie('username')) {
     next('/login')
     return
   }

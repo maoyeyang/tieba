@@ -22,8 +22,7 @@
         <img class="tie-item-img"
              :src="item"
              :preview="id"
-             v-show="i < 3"
-             :ref="`img-${i}`" />
+             v-show="i < 3" />
         <div class="tie-item-mask"
              @click.stop.prevent=""
              v-if="(i === 2)  && (tieInfo.images.length > 3)">+{{tieInfo.images.length-3}}</div>
@@ -103,6 +102,7 @@ export default {
         height: 26vw
         object-fit: cover
         display: inline-block
+        border-radius: 5px
       .tie-item-mask
         background-color: rgba(0, 0, 0, 0.5)
         z-index: 9

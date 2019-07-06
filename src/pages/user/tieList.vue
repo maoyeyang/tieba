@@ -130,7 +130,7 @@ export default {
           line-height: 27px
           justify-content: flex-start
           .icon-like
-            background-image: url('../../assets/icon/like.png')
+            background-image: url('../../assets/icon/heart.png')
             background-size: 20px 20px
             margin-right: 5px
             background-repeat: no-repeat

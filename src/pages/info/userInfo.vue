@@ -1,40 +1,48 @@
 <template>
   <div class="user-info">
     <Top>他的主页</Top>
-    <div class="img"></div>
-    <div class="info">
-      <div class="info-1">
-        <img class="avatar"
-             :src="userInfo.avatar_url" />
-        <div class="button"
-             :class="userInfo.isFocus ?'isFocus':''"
-             @click="isFocus">{{userInfo.isFocus ?'已关注':'+关注'}}</div>
+    <div v-if="exist">
+      <div class="img"></div>
+      <div class="info">
+        <div class="info-1">
+          <img class="avatar"
+               :src="userInfo.avatar_url" />
+          <div class="button"
+               :class="userInfo.isFocus ?'isFocus':''"
+               @click="isFocus">{{userInfo.isFocus ?'已关注':'+关注'}}</div>
+        </div>
+        <div class="info-2">
+          <span class="icon-large"
+                :class="!userInfo.member ? 'icon-crown-1' : 'icon-crown-2'"></span>
+          <span class="nickname">{{userInfo.nickname}}</span>
+          <span class="icon-small icon-man"
+                v-if="userInfo.sex"></span>
+          <span class="icon-small icon-woman"
+                v-if="!userInfo.sex"></span>
+        </div>
+        <div class="info-3">
+          <span class="info-message ">{{userInfo.focusCount}} 关注</span>
+          <span class="info-message br">{{userInfo.fansCount}} 粉丝</span>
+          <span class="info-message br">{{userInfo.focusBaCount}} 关注的吧</span>
+        </div>
+        <div class="info-4">
+          吧龄:{{userInfo.createdAt | dateDiff}}
+        </div>
+        <div class="info-5">
+          简介:{{userInfo.introduction}}
+        </div>
       </div>
-      <div class="info-2">
-        <span class="icon-large"
-              :class="!userInfo.member ? 'icon-crown-1' : 'icon-crown-2'"></span>
-        <span class="nickname">{{userInfo.nickname}}</span>
-        <span class="icon-small icon-man"
-              v-if="userInfo.sex"></span>
-        <span class="icon-small icon-woman"
-              v-if="!userInfo.sex"></span>
-      </div>
-      <div class="info-3">
-        <span class="info-message ">{{userInfo.focusCount}} 关注</span>
-        <span class="info-message br">{{userInfo.fansCount}} 粉丝</span>
-        <span class="info-message br">{{userInfo.focusBaCount}} 关注的吧</span>
-      </div>
-      <div class="info-4">
-        吧龄:{{userInfo.createdAt | dateDiff}}
-      </div>
-      <div class="info-5">
-        简介:{{userInfo.introduction}}
+      <div class="dynamic">
+        <img src="../../assets/images/cloud.png"
+             class="img_cloud" />
+        <p class="text">他还没有任何动态</p>
       </div>
     </div>
-    <div class="dynamic">
-      <img src="../../assets/images/cloud.png"
-           class="img_cloud" />
-      <p class="text">他还没有任何动态</p>
+    <div v-if="!exist"
+         class="tip">
+      <img src='../../assets/images/notfound.png'
+           class="tip-img" />
+      <p class="tip-text">该用户不存在</p>
     </div>
   </div>
 </template>
@@ -50,7 +58,8 @@ export default {
   },
   data () {
     return {
-      userInfo: {}
+      userInfo: {},
+      exist: false
     }
   },
   methods: {
@@ -90,8 +99,7 @@ export default {
     getUserInfo(parseInt(this.$route.params.id)).then(({ data }) => {
       if (data && data.statusCode === 200) {
         this.userInfo = data.data
-      } else {
-        this.$Message.error('登录认证失败')
+        this.exist = true
       }
     })
   }
@@ -203,4 +211,13 @@ export default {
     .text
       font-size: 16px
       padding-top: 15px
+  .tip
+    width: 100%
+    text-align: center
+    .tip-img
+      width: 250px
+      height: 250px
+      margin: 50px auto 20px
+    .tip-text
+      font-size: 18px
 </style>

@@ -7,7 +7,7 @@
         <span class="text-goback">返回</span>
       </div>
       <span class="top-title">
-        我关注的吧
+        浏览历史
       </span>
       <span class="top-right"
             @click="empty">清空</span>
