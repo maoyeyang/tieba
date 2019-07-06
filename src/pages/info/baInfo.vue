@@ -36,28 +36,33 @@
               <span class="ba-tiecount">帖子 {{baInfo.tie_count | numberByW}}</span>
             </div>
           </div>
-          <div class="ba-botton">{{ baInfo.isFocus ? '签到' : '关注'}}</div>
+          <div class="ba-botton"
+               @click="focus">{{ baInfo.isFocus ? '签到' : '关注'}}</div>
         </div>
       </div>
       <div class="option">
         <span class="option-item"
-              :class="option ?'active':''">最新</span>
+              :class="option ?'active':''"
+              @click="change('new')">最新</span>
         <span class="option-item"
-              :class="!option ?'active':''">精华</span>
+              :class="!option ?'active':''"
+              @click="change('jing')">精华</span>
+      </div>
+      <div class="tie">
+        <TieItem :tieInfo="item"
+                 :hiddenBa="false"
+                 v-for="item in tieInfoList"
+                 :key="item.id"></TieItem>
       </div>
     </div>
-    <div class="tie">
-      <TieItem :tieInfo="item"
-               :hiddenBa="false"
-               v-for="item in tieInfoList"
-               :key="item.id"></TieItem>
-    </div>
+
   </div>
 </template>
 
 <script>
-import { getBaInfo } from 'api'
+import { getBaInfo, addFocusBaWithAuth, getTieListByBa } from 'api'
 import { getCookie } from 'common/methods'
+import TieItem from 'components/tie/tieItem'
 export default {
   name: 'BaInfo',
   data () {
@@ -69,6 +74,29 @@ export default {
     }
   },
   methods: {
+    change (str) {
+      if (str === 'new') {
+        this.option = true
+      } else {
+        this.option = false
+      }
+    },
+    focus () {
+      if (!getCookie('username')) {
+        this.$router.push({ path: '/login' })
+        return
+      }
+      if (this.baInfo.isFocus) {
+        this.$Message.warning('该功能还未开启,请问频繁点击')
+      } else {
+        addFocusBaWithAuth({ ba_id: this.baInfo.id }).then(({ data }) => {
+          if (data && data.statusCode === 200) {
+            this.$Message.success('关注该贴吧成功')
+            this.baInfo.isFocus = true
+          }
+        })
+      }
+    },
     release () {
       if (this.$store.getters.isMask === false) {
         this.$store.dispatch('showMask')
@@ -108,8 +136,15 @@ export default {
         }
       }
     })
+    getTieListByBa(parseInt(this.$route.params.id)).then(({ data }) => {
+      if (data && data.statusCode === 200) {
+        this.tieInfoList = data.data
+      }
+    })
+  },
+  components: {
+    TieItem
   }
-
 }
 </script>
 
@@ -260,6 +295,10 @@ export default {
       .option-item
         margin-right: 20px
         font-size: 16px
+        display: inline-block
+        width: 40px
+        height: 20px
+        text-align: center
         &.active
           font-size: 18px
           font-weight: bold

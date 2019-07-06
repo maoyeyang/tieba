@@ -57,10 +57,15 @@
 
 <script>
 import { likeTieWithAuth, unLikeTieWithAuth, collectTieWithAuth, removeCollectTieWithAuth } from 'api'
+import { getCookie } from 'common/methods'
 export default {
   props: ['tieInfo', 'hiddenBa'],
   methods: {
     collect () {
+      if (!getCookie('username')) {
+        this.$router.push({ path: '/login' })
+        return
+      }
       if (this.tieInfo.isCollect) {
         removeCollectTieWithAuth(this.tieInfo.id).then(({ data }) => {
           if (data && data.statusCode === 200) {
@@ -80,6 +85,10 @@ export default {
       }
     },
     like () {
+      if (!getCookie('username')) {
+        this.$router.push({ path: '/login' })
+        return
+      }
       if (this.tieInfo.isLike) {
         unLikeTieWithAuth(this.tieInfo.id).then(({ data }) => {
           if (data && data.statusCode === 200) {

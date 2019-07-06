@@ -25,3 +25,13 @@ export const getBaInfo = async (id) => {
   const res = await axios.get(`/api/bainfo/${id}`)
   return res
 }
+// 获取吧的帖子列表信息
+export const getTieListByBa = async (id) => {
+  const res = await axios.get(`/api/tielistbyba/${id}`)
+  return res
+}
+// 获取收藏的帖子列表信息
+export const getCollectList = async () => {
+  const res = await axios.get(`/api/collectlist`)
+  return res
+}

@@ -10,7 +10,7 @@ export const routerLoginRole = [
   '/userhome',
   '/useredit',
   '/browsehistory',
-  '/release/'
+  '/collection'
 ]
 
 export const TabbarRoutes = [
@@ -28,5 +28,6 @@ export const TabbarRoutes = [
   '/tieinfo/',
   '/bainfo/',
   '/browsehistory',
-  '/release/'
+  '/release/',
+  '/collection'
 ]

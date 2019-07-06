@@ -64,6 +64,10 @@ export default {
   },
   methods: {
     focus () {
+      if (!getCookie('username')) {
+        this.$router.push({ path: '/login' })
+        return
+      }
       addFocusWithAuth({ focus_id: this.tieInfo.user_id }).then(({ data }) => {
         if (data && data.statusCode === 200) {
           this.tieInfo.isFocus = true
@@ -74,6 +78,10 @@ export default {
       })
     },
     collect () {
+      if (!getCookie('username')) {
+        this.$router.push({ path: '/login' })
+        return
+      }
       if (this.tieInfo.isCollect) {
         removeCollectTieWithAuth(this.tieInfo.id).then(({ data }) => {
           if (data && data.statusCode === 200) {
@@ -93,6 +101,10 @@ export default {
       }
     },
     like () {
+      if (!getCookie('username')) {
+        this.$router.push({ path: '/login' })
+        return
+      }
       if (this.tieInfo.isLike) {
         unLikeTieWithAuth(this.tieInfo.id).then(({ data }) => {
           if (data && data.statusCode === 200) {

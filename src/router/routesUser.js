@@ -7,6 +7,7 @@ import TieList from 'pages/user/tieList'
 import UserHome from 'pages/user/userHome'
 import UserEdit from 'pages/user/userEdit'
 import BrowseHistory from 'pages/user/browseHistory'
+import Collection from 'pages/user/collection'
 
 export default [{
   path: '/user',
@@ -44,4 +45,8 @@ export default [{
   path: '/browsehistory',
   name: 'BrowseHistory',
   component: BrowseHistory
+}, {
+  path: '/collection',
+  name: 'Collection',
+  component: Collection
 }]

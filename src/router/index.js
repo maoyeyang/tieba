@@ -64,7 +64,11 @@ router.beforeEach((to, from, next) => {
     Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
   }
   // 一定需要登录的url 没有认证信息 进行登录
-  if (routerLoginRole.some(route => to.path.indexOf(route) === 0) && !getCookie('username')) {
+  if (routerLoginRole.some(route => to.path === route) && !getCookie('username')) {
+    next('/login')
+    return
+  }
+  if ((to.path.indexOf('/release/') === 0) && !getCookie('username')) {
     next('/login')
     return
   }
