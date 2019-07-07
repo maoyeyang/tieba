@@ -32,6 +32,6 @@ export const getTieListByBa = async (id) => {
 }
 // 获取收藏的帖子列表信息
 export const getCollectList = async () => {
-  const res = await axios.get(`/api/collectlist`)
+  const res = await axios.get(`/auth/collectlist`)
   return res
 }

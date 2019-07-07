@@ -60,3 +60,24 @@ export const removeCollectTieWithAuth = async (id) => {
   })
   return res
 }
+
+// 发评论 (验证)
+export const addCommentWithAuth = async (data) => {
+  const res = await axios.post(`/auth/addcomment`, data)
+  return res
+}
+// 评论列表
+export const getCommentList = async (id) => {
+  const res = await axios.get(`/api/commentlist/${id}`)
+  return res
+}
+// 获取你帖子的评论 (验证)
+export const getUserCommentList = async () => {
+  const res = await axios.get(`/auth/usercommentlist`)
+  return res
+}
+// 给自己点赞的信息 (验证)
+export const getLikeList = async () => {
+  const res = await axios.get(`/auth/likelist`)
+  return res
+}

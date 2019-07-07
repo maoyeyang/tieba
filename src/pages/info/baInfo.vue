@@ -51,7 +51,7 @@
       <div class="tie">
         <TieItem :tieInfo="item"
                  :hiddenBa="false"
-                 v-for="item in tieInfoList"
+                 v-for="item in tieInfoListByOption"
                  :key="item.id"></TieItem>
       </div>
     </div>
@@ -71,6 +71,15 @@ export default {
       option: true,
       isScroll: false,
       tieInfoList: []
+    }
+  },
+  computed: {
+    tieInfoListByOption () {
+      if (this.option === true) {
+        return this.tieInfoList
+      } else {
+        return this.tieInfoList.filter(item => item.type === true)
+      }
     }
   },
   methods: {

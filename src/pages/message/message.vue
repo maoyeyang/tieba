@@ -18,7 +18,7 @@
     <div class="message-content"
          ref="message-content">
       <div class="message-content-in">
-        <div class="message-content-item">adadaw</div>
+        <MessageHome class="message-content-item"></MessageHome>
         <MessageChat class="message-content-item"></MessageChat>
         <MessageNotice class="message-content-item"></MessageNotice>
       </div>
@@ -30,6 +30,7 @@
 import BScroll from '@better-scroll/core'
 import MessageNotice from './messageNotice'
 import MessageChat from './messageChat'
+import MessageHome from './messageHome'
 export default {
   name: 'Message',
   data () {
@@ -55,6 +56,7 @@ export default {
           this.contentScroll = new BScroll(this.$refs['message-content'], {
             startX: 0,
             click: true,
+            tap: true,
             scrollX: true,
             scrollY: false,
             momentum: false
@@ -90,7 +92,8 @@ export default {
   },
   components: {
     MessageChat,
-    MessageNotice
+    MessageNotice,
+    MessageHome
   }
 }
 </script>

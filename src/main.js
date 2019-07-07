@@ -11,7 +11,7 @@ import './utils/filter'
 Vue.use(preview)
 Vue.config.productionTip = false
 
-axios.defaults.baseURL = 'http://127.0.0.1:3000/'
+axios.defaults.baseURL = 'http://192.168.1.104:3000/'
 axios.defaults.withCredentials = true
 
 Vue.prototype.$http = axios
