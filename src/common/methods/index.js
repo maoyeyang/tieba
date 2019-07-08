@@ -1,30 +1,3 @@
-const getCookie = (cookieName) => {
-  var strCookie = document.cookie
-  var arrCookie = strCookie.split('; ')
-  for (var i = 0; i < arrCookie.length; i++) {
-    var arr = arrCookie[i].split('=')
-    if (cookieName === arr[0]) {
-      return arr[1]
-    }
-  }
-  return ''
-}
-
-const delCookie = (name) => {
-  var exp = new Date()
-  exp.setTime(exp.getTime() - 1)
-  var cval = getCookie(name)
-  if (cval != null) {
-    document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString()
-  }
-}
-
-const setCookie = (name, value) => {
-  var exp = new Date()
-  exp.setTime(exp.getTime() + 1 * 60 * 60 * 1000)
-  document.cookie = name + '=' + escape(value) + ';expires=' + exp.toGMTString()
-}
-
 const levelByEXP = (number) => {
   if (number >= 300000) {
     return 18
@@ -140,9 +113,6 @@ const EXPByMax = (number) => {
 }
 
 export {
-  getCookie,
-  delCookie,
-  setCookie,
   levelByEXP,
   EXPByMax
 }

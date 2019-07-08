@@ -25,9 +25,6 @@
 import BScroll from '@better-scroll/core'
 import { getTieListByFocus } from 'api'
 import TieItem from 'components/tie/tieItem'
-import {
-  getCookie
-} from 'common/methods'
 export default {
   name: 'HomeFocus',
   data () {
@@ -39,7 +36,7 @@ export default {
   },
   methods: {
     onIsLogin () {
-      if (getCookie('username')) {
+      if (this.$Cookies.get('username')) {
         this.isLogin = true
         getTieListByFocus().then(({ data }) => {
           if (data && data.statusCode === 200) {

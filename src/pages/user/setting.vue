@@ -19,9 +19,6 @@
 <script>
 import { getUserInfoWithAuth } from 'api'
 import Top from 'components/top'
-import {
-  delCookie
-} from 'common/methods'
 export default {
   name: 'Setting',
   data () {
@@ -31,7 +28,7 @@ export default {
   },
   methods: {
     exit () {
-      delCookie('username')
+      this.$Cookies.remove('username')
       this.$router.push({ path: '/' })
     }
   },

@@ -15,15 +15,7 @@
     <div class="release"
          :class="this.$store.getters.isMask ? 'isClick' :''"
          @click="release">×</div>
-    <div class="mask-bottom"
-         v-show="this.$store.getters.isMask">
-      <router-link tag="div"
-                   :to="`/release/${baInfo.id}`"
-                   class="mask-item"><span class="mask-item-icon"><img src="../../assets/icon/font.png" /></span><span class="mask-item-text">文字</span></router-link>
-      <div class="mask-item"><span class="mask-item-icon"><img src="../../assets/icon/camera.png" /></span><span class="mask-item-text">拍摄</span></div>
-      <div class="mask-item"><span class="mask-item-icon"><img src="../../assets/icon/image.png" /></span><span class="mask-item-text">相册</span></div>
-      <div class="mask-item"><span class="mask-item-icon"><img src="../../assets/icon/live.png" /></span><span class="mask-item-text">直播</span></div>
-    </div>
+    <MaskButtom></MaskButtom>
     <div class="content">
       <div class="ba-info">
         <div class="ba-content">
@@ -55,14 +47,13 @@
                  :key="item.id"></TieItem>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import { getBaInfo, addFocusBaWithAuth, getTieListByBa } from 'api'
-import { getCookie } from 'common/methods'
 import TieItem from 'components/tie/tieItem'
+import MaskButtom from 'components/maskButtom'
 export default {
   name: 'BaInfo',
   data () {
@@ -91,7 +82,7 @@ export default {
       }
     },
     focus () {
-      if (!getCookie('username')) {
+      if (!this.$Cookies.get('username')) {
         this.$router.push({ path: '/login' })
         return
       }
@@ -140,7 +131,8 @@ export default {
     getBaInfo(parseInt(this.$route.params.id)).then(({ data }) => {
       if (data && data.statusCode === 200) {
         this.baInfo = data.data
-        if (getCookie('username')) {
+        this.$store.commit('updateRelease', this.baInfo.id)
+        if (this.$Cookies.get('username')) {
           this.setLocalStorage()
         }
       }
@@ -152,7 +144,8 @@ export default {
     })
   },
   components: {
-    TieItem
+    TieItem,
+    MaskButtom
   }
 }
 </script>
@@ -199,36 +192,6 @@ export default {
         line-height: 30px
         margin-top: 5px
         display: inline-block
-  .mask-bottom
-    width: 100%
-    height: 260px
-    position: fixed
-    bottom: 0
-    left: 0
-    border-radius: 10px 10px 0 0
-    background-color: rgba(240, 240, 240, 0.9)
-    z-index: 7
-    display: flex
-    justify-content: space-around
-    padding-top: 40px
-    .mask-item
-      width: 100%
-      height: 100px
-      text-align: center
-      .mask-item-icon
-        width: 60px
-        height: 60px
-        display: block
-        margin: 0 auto
-        background-color: #fff
-        border-radius: 20px
-        img
-          width: 40px
-          height: 40px
-          margin: 10px auto
-      .mask-item-text
-        font-size: 16px
-        line-height: 30px
   .release
     position: fixed
     bottom: 50px

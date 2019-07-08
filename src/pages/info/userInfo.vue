@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import { getCookie } from 'common/methods'
 import { getUserInfo, reomveFocusWithAuth, addFocusWithAuth } from 'api'
 import Top from 'components/top'
 export default {
@@ -64,7 +63,7 @@ export default {
   },
   methods: {
     isFocus () {
-      if (!getCookie('username')) {
+      if (!this.$Cookies.get('username')) {
         this.$router.push({ path: '/login' })
         return
       }

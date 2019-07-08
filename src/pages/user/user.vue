@@ -35,74 +35,52 @@
         <span class="user-info-right icon-right"></span>
       </div>
     </router-link>
-    <Row class="user-message">
+    <div class="user-message">
       <router-link to="/focuslist"
-                   tag="span">
-        <i-col span="6">
-          <p class="user-message-number">{{userInfo.focusCount}}</p>
-          <p class="user-message-des">关注</p>
-        </i-col>
+                   tag="div"
+                   class="user-message-item">
+        <p class="user-message-number">{{userInfo.focusCount}}</p>
+        <p class="user-message-des">关注</p>
       </router-link>
       <router-link to="/fanslist"
-                   tag="span">
-        <i-col span="6">
-          <p class="user-message-number">{{userInfo.fansCount}}</p>
-          <p class="user-message-des">粉丝</p>
-        </i-col>
+                   tag="div"
+                   class="user-message-item">
+        <p class="user-message-number">{{userInfo.fansCount}}</p>
+        <p class="user-message-des">粉丝</p>
       </router-link>
       <router-link to="/focusbalist"
-                   tag="span">
-        <i-col span="6">
-          <p class="user-message-number">{{userInfo.focusBaCount}}</p>
-          <p class="user-message-des">关注的吧</p>
-        </i-col>
+                   tag="div"
+                   class="user-message-item">
+        <p class="user-message-number">{{userInfo.focusBaCount}}</p>
+        <p class="user-message-des">关注的吧</p>
       </router-link>
       <router-link to="/tielist"
-                   tag="span">
-        <i-col span="6">
-          <p class="user-message-number">{{userInfo.tieCount}}</p>
-          <p class="user-message-des">帖子</p>
-        </i-col>
+                   tag="div"
+                   class="user-message-item">
+        <p class="user-message-number">{{userInfo.tieCount}}</p>
+        <p class="user-message-des">帖子</p>
       </router-link>
-    </Row>
+    </div>
     <div class="user-mid">
       <router-link to="/collection"
                    tag="div"
                    class="user-mid-item">
-        <i-col span="4">
-          <span class="user-mid-icon icon-collection"></span>
-        </i-col>
-        <i-col span="17">
-          <p class="user-mid-text">我的收藏</p>
-        </i-col>
-        <i-col span="3">
-          <p class="user-mid-right"></p>
-        </i-col>
+        <span class="user-mid-icon icon-collection"></span>
+        <p class="user-mid-text">我的收藏</p>
+        <p class="user-mid-right"></p>
       </router-link>
       <router-link to="/browsehistory"
                    tag="div"
                    class="user-mid-item">
-        <i-col span="4">
-          <span class="user-mid-icon icon-watchhistory"></span>
-        </i-col>
-        <i-col span="17">
-          <p class="user-mid-text">浏览历史</p>
-        </i-col>
-        <i-col span="3">
-          <p class="user-mid-right"></p>
-        </i-col>
+        <span class="user-mid-icon icon-watchhistory"></span>
+        <p class="user-mid-text">浏览历史</p>
+        <p class="user-mid-right"></p>
       </router-link>
       <div class="user-mid-item"
            @click="saoma">
-        <i-col span="4">
-          <span class="user-mid-icon icon-team"></span>
-        </i-col>
-        <i-col span="17">
-          <p class="user-mid-text">我的群组</p>
-        </i-col>
-        <i-col span="3">
-          <p class="user-mid-right"></p>
-        </i-col>
+        <span class="user-mid-icon icon-team"></span>
+        <p class="user-mid-text">我的群组</p>
+        <p class="user-mid-right"></p>
       </div>
     </div>
   </div>
@@ -250,29 +228,39 @@ export default {
   .user-message
     text-align: center
     font-size: 12px
-    div
+    display: flex
+    height: 90px
+    justify-content: flex-start
+    .user-message-item
+      flex: 1
       padding: 10px 0
       border-bottom: 5px solid #F2F3F2
-    .ivu-col.ivu-col-span-6
       &:active
         background-color: #F2F3F2
-    .user-message-number
-      font-size: 20px
-      height: 25px
-      line-height: 30px
-    .user-message-des
-      text-align: center
+      .user-message-number
+        font-size: 26px
+        height: 35px
+        line-height: 40px
+      .user-message-des
+        font-size: 14px
+        height: 30px
+        line-height: 30px
+        text-align: center
   .user-mid
     border-bottom: 5px solid #F2F3F2
     .user-mid-item
-      height: 50px
+      height: 60px
       padding-top: 10px
       border-bottom: 1px solid #FBF9FA
+      display: flex
+      justify-content: flex-start
       &:active
         background-color: #F2F3F2
       .user-mid-icon
+        flex: 4
         width: 30px
         height: 30px
+        margin-top: 5px
         background-size: cover
         display: block
         margin-left: 10px
@@ -286,11 +274,15 @@ export default {
         &.icon-team
           background-image: url('../../assets/icon/team.png')
       .user-mid-text
+        flex: 17
         font-size: 14px
+        margin-top: 5px
         line-height: 30px
       .user-mid-right
+        flex: 3
         width: 40px
         height: 30px
+        margin-top: 5px
         background-repeat: no-repeat
         background-size: 20px 20px
         background-position: center center

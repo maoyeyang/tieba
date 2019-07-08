@@ -27,7 +27,6 @@
 
 <script>
 import { addFocusBaWithAuth, getTiebaList } from 'api'
-import { getCookie } from 'common/methods'
 export default {
   data () {
     return {
@@ -41,7 +40,7 @@ export default {
   },
   methods: {
     focusba (id) {
-      if (!getCookie('username')) {
+      if (!this.$Cookies.get('username')) {
         this.$router.push({ path: '/login' })
         return
       }

@@ -92,7 +92,6 @@
 import { likeTieWithAuth, unLikeTieWithAuth, collectTieWithAuth,
   addFocusWithAuth, removeCollectTieWithAuth, getTieInfo,
   getCommentList, addCommentWithAuth} from 'api'
-import { getCookie } from 'common/methods'
 import Top from 'components/top'
 export default {
   name: 'TieInfo',
@@ -122,7 +121,7 @@ export default {
       }
     },
     addComment () {
-      if (!getCookie('username')) {
+      if (!this.$Cookies.get('username')) {
         this.$router.push({ path: '/login' })
         return
       }
@@ -134,13 +133,14 @@ export default {
       addCommentWithAuth(data).then(({ data }) => {
         if (data && data.statusCode === 200) {
           this.$Message.success('发帖成功')
+          this.init()
         } else {
           this.$Message.success('发帖失败')
         }
       })
     },
     focus () {
-      if (!getCookie('username')) {
+      if (!this.$Cookies.get('username')) {
         this.$router.push({ path: '/login' })
         return
       }
@@ -154,7 +154,7 @@ export default {
       })
     },
     collect () {
-      if (!getCookie('username')) {
+      if (!this.$Cookies.get('username')) {
         this.$router.push({ path: '/login' })
         return
       }
@@ -177,7 +177,7 @@ export default {
       }
     },
     like () {
-      if (!getCookie('username')) {
+      if (!this.$Cookies.get('username')) {
         this.$router.push({ path: '/login' })
         return
       }
@@ -216,23 +216,26 @@ export default {
         return
       }
       localStorage.setItem('joinTie', JSON.stringify([obj]))
+    },
+    init () {
+      getTieInfo(parseInt(this.$route.params.id)).then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.tieInfo = data.data
+          this.$previewRefresh()
+          if (this.$Cookies.get('username')) {
+            this.setLocalStorage()
+          }
+        }
+      })
+      getCommentList(parseInt(this.$route.params.id)).then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.commentList = data.data
+        }
+      })
     }
   },
   created () {
-    getTieInfo(parseInt(this.$route.params.id)).then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.tieInfo = data.data
-        this.$previewRefresh()
-        if (getCookie('username')) {
-          this.setLocalStorage()
-        }
-      }
-    })
-    getCommentList(parseInt(this.$route.params.id)).then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.commentList = data.data
-      }
-    })
+    this.init()
   },
   components: {
     Top

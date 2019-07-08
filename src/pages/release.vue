@@ -6,7 +6,7 @@
         <span class="icon-goback"></span>
       </div>
       <span class="top-title">
-        发布到{{this.baInfo.ba_name}}吧
+        {{(this.$store.getters.release !== 0) ? '发布到'+this.baInfo.ba_name+'吧':'发布到主页' }}
       </span>
       <span class="top-right"
             @click="release">发布</span>
@@ -106,7 +106,13 @@ export default {
     this.$store.dispatch('hiddenMask')
   },
   created () {
-    getBaInfo(parseInt(this.$route.params.id)).then(({ data }) => {
+    if (this.$store.getters.release === 0) {
+      return this.$Message.warning({
+        content: '暂不支持发布到主页,您可以到吧内发帖',
+        duration: 10
+      })
+    }
+    getBaInfo(this.$store.getters.release).then(({ data }) => {
       if (data && data.statusCode === 200) {
         this.baInfo = data.data
       }

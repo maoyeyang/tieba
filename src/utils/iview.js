@@ -8,12 +8,11 @@ import {
   FormItem,
   Icon,
   Upload,
-  Col,
-  Row,
   Dropdown,
   DropdownMenu,
   DropdownItem,
-  Message
+  Message,
+  Spin
 } from 'iview'
 import 'iview/dist/styles/iview.css'
 
@@ -25,11 +24,10 @@ Vue.component('Form', Form)
 Vue.component('FormItem', FormItem)
 Vue.component('Icon', Icon)
 Vue.component('Upload', Upload)
-Vue.component('Row', Row)
-Vue.component('i-col', Col)
 Vue.component('Dropdown', Dropdown)
 Vue.component('DropdownMenu', DropdownMenu)
 Vue.component('DropdownItem', DropdownItem)
+Vue.component('Spin', Spin)
 
 Vue.prototype.$Message = Message
 

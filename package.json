@@ -5,7 +5,7 @@
   "author": "maoyeyang <673842307@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --host 192.168.1.104 --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
@@ -14,6 +14,7 @@
     "@better-scroll/core": "^2.0.0-alpha.15",
     "axios": "^0.19.0",
     "iview": "^3.4.2",
+    "js-cookie": "^2.2.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
     "vue": "^2.5.2",

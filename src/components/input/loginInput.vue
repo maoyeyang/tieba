@@ -37,7 +37,6 @@
 
 <script>
 import { login } from 'api'
-import { setCookie } from 'common/methods'
 export default {
   data () {
     return {
@@ -70,7 +69,8 @@ export default {
           }
           const { data } = await login(user)
           if (data && data.statusCode === 200) {
-            setCookie('username', data.data.token)
+            this.$Cookies.set('username', data.data.token)
+            this.$Cookies.get('username')
             this.saveInfo()
             this.$Message.success(`恭喜 ${data.data.nickname} ,登录成功!`)
             this.$router.push({ path: '/home/content' })

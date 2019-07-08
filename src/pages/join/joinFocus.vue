@@ -16,9 +16,6 @@
 
 <script>
 import BScroll from '@better-scroll/core'
-import {
-  getCookie
-} from 'common/methods'
 import searchInput from 'components/input/searchInput'
 import newWatch from 'components/join/newWatch'
 import focusBa from 'components/join/focusBa'
@@ -32,7 +29,7 @@ export default {
   },
   methods: {
     onIsLogin () {
-      if (getCookie('username')) {
+      if (this.$Cookies.get('username')) {
         this.isLogin = true
       }
     },

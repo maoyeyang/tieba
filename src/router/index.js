@@ -5,10 +5,7 @@ import {
   routerLoginRole,
   TabbarRoutes
 } from './routesRole'
-import {
-  getCookie
-} from '../common/methods'
-import JsonWebToken from 'jsonwebtoken'
+import Cookies from 'js-cookie'
 
 import routesHome from './routesHome'
 import routesJoin from './routesJoin'
@@ -46,7 +43,7 @@ const router = new Router({
     name: 'Search',
     component: Search
   }, {
-    path: '/release/:id',
+    path: '/release',
     name: 'Release',
     component: Release
   }
@@ -55,20 +52,8 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  // console.log(from)
-  // console.log(to)
-  // 给$http请求设置cookie请求头
-  const token = getCookie('username')
-  const isTokenRight = !!(token && JsonWebToken.decode(token))
-  if (isTokenRight) {
-    Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
-  }
   // 一定需要登录的url 没有认证信息 进行登录
-  if (routerLoginRole.some(route => to.path === route) && !getCookie('username')) {
-    next('/login')
-    return
-  }
-  if ((to.path.indexOf('/release/') === 0) && !getCookie('username')) {
+  if (routerLoginRole.some(route => to.path === route) && !Cookies.get('username')) {
     next('/login')
     return
   }
@@ -77,6 +62,9 @@ router.beforeEach((to, from, next) => {
     store.dispatch('hiddenTabbar')
   } else {
     store.dispatch('showTabbar')
+  }
+  if (store.getters.isTabbar === true) {
+    store.commit('updateRelease', 0)
   }
   next()
 })

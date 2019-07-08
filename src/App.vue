@@ -3,6 +3,13 @@
     <router-view />
     <Tabbar v-show='$store.getters.isTabbar'></Tabbar>
     <AllMask v-show='$store.getters.isMask'></AllMask>
+    <Spin fix
+          v-show='$store.getters.isLoading'>
+      <Icon type="ios-loading"
+            size=70
+            class="demo-spin-icon-load"></Icon>
+      <div>加载中</div>
+    </Spin>
   </div>
 </template>
 
@@ -50,4 +57,18 @@ img
   .home-content
     position: absolute
     z-index: 2
+  .ivu-spin-fix
+    background-color: rgba(0, 0, 0, 0.6)
+    color: #fff
+    .ivu-spin-text
+      font-size: 20px
+    .demo-spin-icon-load
+      animation: ani-demo-spin 1s linear infinite
+@keyframes ani-demo-spin
+  from
+    transform: rotate(0deg)
+  50%
+    transform: rotate(180deg)
+  to
+    transform: rotate(360deg)
 </style>
