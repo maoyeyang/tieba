@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="home-top"
-         :class="isScroll?'top-scroll':''">
+         :class="this.$store.getters.isScroll?'top-scroll':''">
       <router-link tag="span"
                    class="home-top-item"
                    to="/home/focus">
@@ -35,12 +35,7 @@
 
 <script>
 export default {
-  name: 'Home',
-  data () {
-    return {
-      isScroll: true
-    }
-  }
+  name: 'Home'
 }
 </script>
 

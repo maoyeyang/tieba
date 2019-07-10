@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="home-top"
-         :class="isScroll?'top-scroll':''">
+         :class="this.$store.getters.isScroll?'top-scroll':''">
       <router-link tag="span"
                    class="home-top-item"
                    to="/join/focus">

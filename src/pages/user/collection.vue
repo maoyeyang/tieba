@@ -14,21 +14,25 @@
     </div>
     <div class="content">
       <div class="swiper">
-        <div class="item"
-             v-for="(item,i) in collectionList"
-             :key="item.id">
+        <router-link :to="`/tieinfo/${item.id}`"
+                     tag="div"
+                     class="item"
+                     v-for="(item,i) in collectionList"
+                     :key="item.id">
           <div class="reduce"
                v-show="isEdit"
-               @click="removeCollect(item.id,i)"><span class="red">-</span></div>
+               @click.stop.prevent="removeCollect(item.id,i)"><span class="red">-</span></div>
           <div class="info">
-            <div class="row-1">
+            <router-link :to="`/userinfo/${item.user_id}`"
+                         tag="div"
+                         class="row-1">
               <img class="avatar"
                    :src="item.avatar_url" />
               <span class="nickname">{{item.nickname}}</span>
               <span class="focus"
                     v-if="!item.isFocus"
-                    @click="focus(item.user_id,i)">+关注</span>
-            </div>
+                    @click.stop.prevent="focus(item.user_id,i)">+关注</span>
+            </router-link>
             <div class="row-2">
               <img class="tie-img"
                    :src="item.images[0]"
@@ -36,7 +40,7 @@
               <p class="title">{{item.title}}</p>
             </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -172,6 +176,7 @@ export default {
               height: 40px
               border-radius: 50%
               object-fit: cover
+              border: 1px solid #eee
             .nickname
               height: 40px
               width: 100%

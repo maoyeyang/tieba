@@ -105,6 +105,7 @@ export default {
         height: 50px
         object-fit: cover
         border-radius: 50%
+        border: 1px solid #eee
         margin-right: 20px
       .item-nickname
         line-height: 30px

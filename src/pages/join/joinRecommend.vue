@@ -13,6 +13,9 @@ export default {
   components: {
     searchInput,
     recommendInterest
+  },
+  created () {
+    this.$store.commit('updateScrollStatus', false)
   }
 }
 </script>

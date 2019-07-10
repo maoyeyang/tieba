@@ -126,6 +126,8 @@ export default {
       height: 40px
       flex: 0 0 40px
       object-fit: cover
+      border-radius: 50%
+      border: 1px solid #eee
     .tie-item-nickname
       width: 100%
       text-align: left
@@ -147,10 +149,10 @@ export default {
     .tie-item-title
       font-weight: bold
       font-size: 14px
-      padding: 3px 0 0 0
+      padding: 3px 0 0 5px
     .tie-item-content
       font-size: 12px
-      text-indent: 2em
+      padding-left: 5px
       overflow: hidden
       text-overflow: ellipsis
       display: -webkit-box
@@ -230,7 +232,7 @@ export default {
       display: flex
       justify-content: flex-start
       line-height: 30px
-      margin-right: 50px
+      margin-right: 20px
       .icon-like
         width: 30px
         height: 30px

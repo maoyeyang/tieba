@@ -165,6 +165,7 @@ export default {
       display: block
       margin-left: 10px
       border-radius: 50%
+      border: 1px solid #eee
       object-fit: cover
     .user-info-title
       height: 70px
@@ -240,7 +241,7 @@ export default {
       .user-message-number
         font-size: 26px
         height: 35px
-        line-height: 40px
+        line-height: 45px
       .user-message-des
         font-size: 14px
         height: 30px

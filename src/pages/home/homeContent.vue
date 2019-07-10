@@ -24,27 +24,63 @@ export default {
       hiddenBa: true
     }
   },
+  computed: {
+    refreshData () {
+      return this.$store.getters.refreshData
+    }
+  },
+  watch: {
+    refreshData: function (newVal) {
+      if (newVal) {
+        this.initData()
+        this.scroll.refresh()
+        this.scroll.scrollTo(0, 0, 300)
+        this.$store.commit('updateRefreshData', false)
+        this.$store.commit('updateRefreshStatus', false)
+      }
+    }
+  },
   methods: {
     initScroll () {
       this.$nextTick(() => {
         this.scroll = new BScroll(this.$refs['srcoll'], {
           click: true,
-          scrollY: true
+          scrollY: true,
+          probeType: 3
         })
         this.scroll.on('touchEnd', (pos) => {
-          if (pos.y > 120) {
+          if (pos.y > 100) {
+            this.initData()
           }
         })
+        this.scroll.on('scroll', (pos) => {
+          if (pos.y < 0) {
+            this.$store.commit('updateScrollStatus', true)
+          }
+          if (pos.y >= 0) {
+            this.$store.commit('updateScrollStatus', false)
+          }
+          if (pos.y < -500) {
+            this.$store.commit('updateRefreshStatus', true)
+          }
+          if (pos.y >= -500) {
+            this.$store.commit('updateRefreshStatus', false)
+          }
+        })
+      })
+    },
+    initData () {
+      getTieList().then(({ data }) => {
+        if (data && data.statusCode === 200) {
+          this.tieInfoList = data.data
+          this.initScroll()
+        }
       })
     }
   },
   created () {
-    getTieList().then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.tieInfoList = data.data
-        this.initScroll()
-      }
-    })
+    this.initData()
+    this.$store.commit('updateScrollStatus', false)
   },
   components: {
     TieItem

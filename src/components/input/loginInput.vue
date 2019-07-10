@@ -69,8 +69,10 @@ export default {
           }
           const { data } = await login(user)
           if (data && data.statusCode === 200) {
-            this.$Cookies.set('username', data.data.token)
-            this.$Cookies.get('username')
+            let inFifteenMinutes = new Date(new Date().getTime() + 30 * 60 * 1000)
+            this.$Cookies.set('username', data.data.token, {
+              expires: inFifteenMinutes
+            })
             this.saveInfo()
             this.$Message.success(`恭喜 ${data.data.nickname} ,登录成功!`)
             this.$router.push({ path: '/home/content' })

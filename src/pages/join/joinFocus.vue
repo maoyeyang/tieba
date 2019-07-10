@@ -40,10 +40,20 @@ export default {
       this.$nextTick(() => {
         this.scroll = new BScroll(this.$refs['srcoll'], {
           click: true,
-          scrollY: true
+          scrollY: true,
+          probeType: 3
         })
         this.scroll.on('touchEnd', (pos) => {
           if (pos.y > 120) {
+            this.onIsLogin()
+          }
+        })
+        this.scroll.on('scroll', (pos) => {
+          if (pos.y < 0) {
+            this.$store.commit('updateScrollStatus', true)
+          }
+          if (pos.y >= 0) {
+            this.$store.commit('updateScrollStatus', false)
           }
         })
       })
@@ -51,6 +61,7 @@ export default {
   },
   created () {
     this.onIsLogin()
+    this.$store.commit('updateScrollStatus', false)
   },
   mounted () {
   },

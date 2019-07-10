@@ -66,6 +66,9 @@ router.beforeEach((to, from, next) => {
   if (store.getters.isTabbar === true) {
     store.commit('updateRelease', 0)
   }
+  if (from.path === '/home/content') {
+    store.commit('updateRefreshStatus', false)
+  }
   next()
 })
 

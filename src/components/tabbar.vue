@@ -5,9 +5,17 @@
                  to="/home"
                  :class="isRefresh? 'refresh' :''">
       <div class="tabbar-item-icon icon-home"
-           :class="isRefresh? 'refresh' :''">
+           v-show="!this.$store.getters.isRefresh">
       </div>
-      <span class="tabbar-item-label">首页</span>
+      <div class="tabbar-item-icon icon-home refresh"
+           v-show="this.$store.getters.isRefresh"
+           @click.stop.prevent="refresh">
+      </div>
+      <span class="tabbar-item-label"
+            v-show="!this.$store.getters.isRefresh">首页</span>
+      <span class="tabbar-item-label refresh"
+            v-show="this.$store.getters.isRefresh"
+            @click.stop.prevent="refresh">刷新</span>
     </router-link>
     <router-link tag="span"
                  class="tabbar-item"
@@ -53,6 +61,11 @@ export default {
     }
   },
   methods: {
+    refresh () {
+      if (this.$store.getters.isRefresh) {
+        this.$store.commit('updateRefreshData', true)
+      }
+    },
     release () {
       if (!this.$Cookies.get('username')) {
         this.$router.push({ path: '/login' })
@@ -125,6 +138,8 @@ export default {
           background-size: cover
       .tabbar-item-label
         color: #0083FF
+        &.refresh
+          color: red
       &.refresh
         .tabbar-item-label
           color: #FF1B19

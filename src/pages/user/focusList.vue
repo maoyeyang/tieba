@@ -159,6 +159,8 @@ export default {
         .focus-img
           flex: 0 0 45px
           height: 45px
+          border-radius: 50%
+          border: 1px solid #eee
           object-fit: cover
         .focus-info
           margin-left: 15px

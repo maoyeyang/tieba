@@ -1,3 +1,4 @@
+// 针对不同经验返回不同的贴吧等级
 const levelByEXP = (number) => {
   if (number >= 300000) {
     return 18
@@ -54,7 +55,7 @@ const levelByEXP = (number) => {
     return 1
   }
 }
-
+// 针对不同经验返回不同贴吧等级的下一级所需经验
 const EXPByMax = (number) => {
   if (number >= 300000) {
     return 'MAX'
