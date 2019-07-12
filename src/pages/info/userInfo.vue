@@ -74,32 +74,22 @@ export default {
       }
     },
     removeFocus () {
-      reomveFocusWithAuth({ focus_id: this.userInfo.id }).then(({ data }) => {
-        if (data.statusCode === 200) {
-          this.userInfo.isFocus = false
-          return this.$Message.success('取消关注成功')
-        } else {
-          return this.$Message.error('取消关注失败')
-        }
+      reomveFocusWithAuth({ focus_id: this.userInfo.id }).then(() => {
+        this.userInfo.isFocus = false
+        return this.$Message.success('取消关注成功')
       })
     },
     addFocus () {
-      addFocusWithAuth({ focus_id: this.userInfo.id }).then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.userInfo.isFocus = true
-          return this.$Message.success('关注成功')
-        } else {
-          return this.$Message.error('关注失败')
-        }
+      addFocusWithAuth({ focus_id: this.userInfo.id }).then(() => {
+        this.userInfo.isFocus = true
+        return this.$Message.success('关注成功')
       })
     }
   },
   created () {
     getUserInfo(parseInt(this.$route.params.id)).then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.userInfo = data.data
-        this.exist = true
-      }
+      this.userInfo = data.data
+      this.exist = true
     })
   }
 }

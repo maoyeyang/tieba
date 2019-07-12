@@ -29,7 +29,9 @@
              src="../../assets/icon/search.png" />
       </router-link>
     </div>
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 

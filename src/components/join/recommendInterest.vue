@@ -48,27 +48,19 @@ export default {
         return
       }
       addFocusBaWithAuth({ ba_id: id }).then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.tiebaList = this.tiebaList.map((item) => {
-            if (item.id === id) {
-              item.isFocus = true
-              item.fans_count = ++item.fans_count
-            }
-            return item
-          })
-          this.$Message.success(data.message)
-        } else {
-          this.$Message.error(data.message)
-        }
+        this.tiebaList = this.tiebaList.map((item) => {
+          if (item.id === id) {
+            item.isFocus = true
+            item.fans_count = ++item.fans_count
+          }
+          return item
+        })
+        this.$Message.success(data.message)
       })
     },
     getTiebaList () {
       getTiebaList().then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.tiebaList = data.data
-        } else {
-          this.$Message.error(data.message)
-        }
+        this.tiebaList = data.data
       })
     },
     change () {

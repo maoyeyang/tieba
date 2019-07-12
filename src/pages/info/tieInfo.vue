@@ -132,13 +132,9 @@ export default {
         content: this.comment
       }
       this.comment = ''
-      addCommentWithAuth(data).then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.$Message.success('发帖成功')
-          this.init()
-        } else {
-          this.$Message.success('发帖失败')
-        }
+      addCommentWithAuth(data).then(() => {
+        this.$Message.success('发帖成功')
+        this.init()
       })
     },
     focus () {
@@ -146,13 +142,9 @@ export default {
         this.$router.push({ path: '/login' })
         return
       }
-      addFocusWithAuth({ focus_id: this.tieInfo.user_id }).then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.tieInfo.isFocus = true
-          return this.$Message.success('关注成功')
-        } else {
-          return this.$Message.error('关注失败')
-        }
+      addFocusWithAuth({ focus_id: this.tieInfo.user_id }).then(() => {
+        this.tieInfo.isFocus = true
+        return this.$Message.success('关注成功')
       })
     },
     collect () {
@@ -161,20 +153,12 @@ export default {
         return
       }
       if (this.tieInfo.isCollect) {
-        removeCollectTieWithAuth(this.tieInfo.id).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.tieInfo.isCollect = false
-          } else {
-            this.$Message.success('取消收藏失败')
-          }
+        removeCollectTieWithAuth(this.tieInfo.id).then(() => {
+          this.tieInfo.isCollect = false
         })
       } else {
-        collectTieWithAuth(this.tieInfo.id).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.tieInfo.isCollect = true
-          } else {
-            this.$Message.success('收藏失败')
-          }
+        collectTieWithAuth(this.tieInfo.id).then(() => {
+          this.tieInfo.isCollect = true
         })
       }
     },
@@ -184,22 +168,14 @@ export default {
         return
       }
       if (this.tieInfo.isLike) {
-        unLikeTieWithAuth(this.tieInfo.id).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.tieInfo.isLike = false
-            this.tieInfo.likes -= 1
-          } else {
-            this.$Message.success('取消点赞失败')
-          }
+        unLikeTieWithAuth(this.tieInfo.id).then(() => {
+          this.tieInfo.isLike = false
+          this.tieInfo.likes -= 1
         })
       } else {
-        likeTieWithAuth(this.tieInfo.id).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.tieInfo.isLike = true
-            this.tieInfo.likes += 1
-          } else {
-            this.$Message.success('点赞失败')
-          }
+        likeTieWithAuth(this.tieInfo.id).then(() => {
+          this.tieInfo.isLike = true
+          this.tieInfo.likes += 1
         })
       }
     },
@@ -221,18 +197,14 @@ export default {
     },
     init () {
       getTieInfo(parseInt(this.$route.params.id)).then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.tieInfo = data.data
-          this.$previewRefresh()
-          if (this.$Cookies.get('username')) {
-            this.setLocalStorage()
-          }
+        this.tieInfo = data.data
+        this.$previewRefresh()
+        if (this.$Cookies.get('username')) {
+          this.setLocalStorage()
         }
       })
       getCommentList(parseInt(this.$route.params.id)).then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.commentList = data.data
-        }
+        this.commentList = data.data
       })
     }
   },

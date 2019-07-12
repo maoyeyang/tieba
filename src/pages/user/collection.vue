@@ -58,23 +58,15 @@ export default {
   },
   methods: {
     removeCollect (id, i) {
-      removeCollectTieWithAuth(id).then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.collectionList.splice(i, 1)
-          this.$Message.success('取消收藏成功')
-        } else {
-          this.$Message.error('取消收藏失败')
-        }
+      removeCollectTieWithAuth(id).then(() => {
+        this.collectionList.splice(i, 1)
+        this.$Message.success('取消收藏成功')
       })
     },
     focus (id, i) {
-      addFocusWithAuth({ focus_id: id }).then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.collectionList[i].isFocus = true
-          this.$Message.success('关注用户成功')
-        } else {
-          this.$Message.error('关注用户失败')
-        }
+      addFocusWithAuth({ focus_id: id }).then(() => {
+        this.collectionList[i].isFocus = true
+        this.$Message.success('关注用户成功')
       })
     },
     edit () {
@@ -86,9 +78,7 @@ export default {
   },
   created () {
     getCollectList().then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.collectionList = data.data
-      }
+      this.collectionList = data.data
     })
   }
 }

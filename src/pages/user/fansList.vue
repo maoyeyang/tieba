@@ -48,18 +48,14 @@ export default {
   },
   methods: {
     removeFans () {
-      reomveFocusWithAuth({ focus_id: this.id }).then(({ data }) => {
-        if (data.statusCode === 200) {
-          this.fansList = this.fansList.map(item => {
-            if (item.id === this.id) {
-              item.mutual = false
-            }
-            return item
-          })
-          return this.$Message.success('取消关注成功')
-        } else {
-          return this.$Message.error('取消关注失败')
-        }
+      reomveFocusWithAuth({ focus_id: this.id }).then(() => {
+        this.fansList = this.fansList.map(item => {
+          if (item.id === this.id) {
+            item.mutual = false
+          }
+          return item
+        })
+        return this.$Message.success('取消关注成功')
       })
       this.$store.dispatch('hiddenMask')
     },
@@ -68,11 +64,7 @@ export default {
     },
     getAllAndCountByFans () {
       getUserFansListWithAuth().then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.fansList = data.data
-        } else {
-          this.$message.error('资源获取失败')
-        }
+        this.fansList = data.data
       })
     },
     addactive (name) {
@@ -85,18 +77,14 @@ export default {
         this.$store.dispatch('showMask')
       } else {
         this.id = id
-        addFocusWithAuth({ focus_id: id }).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.fansList = this.fansList.map(item => {
-              if (item.id === this.id) {
-                item.mutual = true
-              }
-              return item
-            })
-            return this.$Message.success('关注成功')
-          } else {
-            return this.$Message.error('关注失败')
-          }
+        addFocusWithAuth({ focus_id: id }).then(() => {
+          this.fansList = this.fansList.map(item => {
+            if (item.id === this.id) {
+              item.mutual = true
+            }
+            return item
+          })
+          return this.$Message.success('关注成功')
         })
       }
     }

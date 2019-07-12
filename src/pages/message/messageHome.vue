@@ -54,9 +54,7 @@ export default {
   },
   created () {
     getUserCommentList().then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.commentList = data.data
-      }
+      this.commentList = data.data
     })
   }
 }

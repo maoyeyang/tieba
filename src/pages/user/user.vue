@@ -102,11 +102,7 @@ export default {
   },
   created () {
     getUserInfoWithAuth().then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.userInfo = data.data
-      } else {
-        this.$Message.error('登录认证失败')
-      }
+      this.userInfo = data.data
     })
   }
 }

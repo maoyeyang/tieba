@@ -43,9 +43,7 @@ export default {
   },
   created () {
     getLikeList().then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.likeList = data.data
-      }
+      this.likeList = data.data
     })
   }
 }

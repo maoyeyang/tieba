@@ -71,10 +71,8 @@ export default {
     },
     initData () {
       getTieList().then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.tieInfoList = data.data
-          this.initScroll()
-        }
+        this.tieInfoList = data.data
+        this.initScroll()
       })
     }
   },

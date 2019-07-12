@@ -39,10 +39,8 @@ export default {
       if (this.$Cookies.get('username')) {
         this.isLogin = true
         getTieListByFocus().then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.tieInfoList = data.data
-            this.initScroll()
-          }
+          this.tieInfoList = data.data
+          this.initScroll()
         })
       }
     },

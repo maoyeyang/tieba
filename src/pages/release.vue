@@ -67,13 +67,10 @@ export default {
           fd.append('file[' + i + ']', this.files[i])
         }
       }
-      const { data } = await addTieWithAuth(fd)
-      if (data && data.statusCode === 200) {
+      await addTieWithAuth(fd).then(({ data }) => {
         this.$Message.success(data.message)
         this.$router.go(-1)
-      } else {
-        this.$Message.error(data.message)
-      }
+      })
     },
     goBack () {
       this.$router.go(-1)
@@ -109,13 +106,11 @@ export default {
     if (this.$store.getters.release === 0) {
       return this.$Message.warning({
         content: '暂不支持发布到主页,您可以到吧内发帖',
-        duration: 10
+        duration: 5
       })
     }
     getBaInfo(this.$store.getters.release).then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.baInfo = data.data
-      }
+      this.baInfo = data.data
     })
   }
 }

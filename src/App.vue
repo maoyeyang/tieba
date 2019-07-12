@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <keep-alive>
+      <router-view />
+    </keep-alive>
     <Tabbar v-show='$store.getters.isTabbar'></Tabbar>
     <AllMask v-show='$store.getters.isMask'></AllMask>
     <Spin fix

@@ -100,7 +100,7 @@ export default {
         fd.append('file', this.file)
       }
       const { data } = await editUserInfoWithAuth(fd)
-      if (data && data.statusCode === 200) {
+      if (data && data.success === true) {
         this.$Message.success(data.message)
       } else {
         this.$Message.error(data.message)
@@ -131,15 +131,11 @@ export default {
   created () {
     this.$nextTick(() => {
       getUserInfoWithAuth().then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.userInfo = {
-            ...(data.data),
-            ...(this.userInfo)
-          }
-          this.url = this.userInfo.avatar_url
-        } else {
-          this.$Message.error('登录认证失败')
+        this.userInfo = {
+          ...(data.data),
+          ...(this.userInfo)
         }
+        this.url = this.userInfo.avatar_url
       })
     })
   }

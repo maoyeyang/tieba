@@ -76,12 +76,8 @@ export default {
   methods: {
     removeFocus () {
       reomveFocusWithAuth({ focus_id: this.id }).then(({ data }) => {
-        if (data.statusCode === 200) {
-          this.$Message.success('取消关注成功')
-          this.focusList = this.focusList.filter(item => item.id !== this.id)
-        } else {
-          this.$Message.error('取消关注失败')
-        }
+        this.$Message.success('取消关注成功')
+        this.focusList = this.focusList.filter(item => item.id !== this.id)
       })
       this.$store.dispatch('hiddenMask')
     },
@@ -98,11 +94,7 @@ export default {
     },
     getAllAndCountByFocus () {
       getUserFocusListWithAuth().then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.focusList = data.data
-        } else {
-          this.$message.error('资源获取失败')
-        }
+        this.focusList = data.data
       })
     },
     addactive (name) {

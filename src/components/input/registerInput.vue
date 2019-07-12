@@ -79,10 +79,10 @@ export default {
             password: this.formRegister.password
           }
           const { data } = await register(user)
-          if (data && data.statusCode === 200) {
+          if (data && data.success === true) {
             this.$Message.success(data.message)
             this.$router.go(-1)
-          } else if (data && data.statusCode === 400) {
+          } else {
             this.$Message.error(data.message)
           }
         }

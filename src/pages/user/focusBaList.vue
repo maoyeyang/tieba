@@ -52,12 +52,8 @@ export default {
   methods: {
     deleteById (id) {
       reomveFocusBaWithAuth({ ba_id: id }).then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.focusBaList = this.focusBaList.filter((item) => item.id !== id)
-          this.$Message.success('成功取关该贴吧')
-        } else {
-          this.$Message.error('取关贴吧失败')
-        }
+        this.focusBaList = this.focusBaList.filter((item) => item.id !== id)
+        this.$Message.success('成功取关该贴吧')
       })
     },
     edit () {
@@ -68,15 +64,11 @@ export default {
     },
     getFocusBaList () {
       getFocusBaListWithAuth().then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.focusBaList = data.data.map((item) => {
-            item.expByMax = EXPByMax(item.exp)
-            return item
-          })
-          this.levelarr = data.data.map((item) => { return levelByEXP(item.exp) })
-        } else {
-          this.$Message.error('登录认证失败')
-        }
+        this.focusBaList = data.data.map((item) => {
+          item.expByMax = EXPByMax(item.exp)
+          return item
+        })
+        this.levelarr = data.data.map((item) => { return levelByEXP(item.exp) })
       })
     }
   },

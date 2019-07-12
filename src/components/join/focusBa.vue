@@ -68,11 +68,7 @@ export default {
   methods: {
     getFocusBaList () {
       getFocusBaListWithAuth().then(({ data }) => {
-        if (data && data.statusCode === 200) {
-          this.focusbaList = data.data
-        } else {
-          this.$Message.error('登录认证失败')
-        }
+        this.focusbaList = data.data
         this.$emit('initScroll')
       })
     },

@@ -55,50 +55,32 @@ export default {
   methods: {
     collect (i) {
       if (this.userTieList[i].isCollect) {
-        removeCollectTieWithAuth(this.userTieList[i].id).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.userTieList[i].isCollect = false
-          } else {
-            this.$Message.success('取消收藏失败')
-          }
+        removeCollectTieWithAuth(this.userTieList[i].id).then(() => {
+          this.userTieList[i].isCollect = false
         })
       } else {
-        collectTieWithAuth(this.userTieList[i].id).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.userTieList[i].isCollect = true
-          } else {
-            this.$Message.success('收藏失败')
-          }
+        collectTieWithAuth(this.userTieList[i].id).then(() => {
+          this.userTieList[i].isCollect = true
         })
       }
     },
     like (i) {
       if (this.userTieList[i].isLike) {
-        unLikeTieWithAuth(this.userTieList[i].id).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.userTieList[i].isLike = false
-            this.userTieList[i].likes -= 1
-          } else {
-            this.$Message.success('取消点赞失败')
-          }
+        unLikeTieWithAuth(this.userTieList[i].id).then(() => {
+          this.userTieList[i].isLike = false
+          this.userTieList[i].likes -= 1
         })
       } else {
-        likeTieWithAuth(this.userTieList[i].id).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.userTieList[i].isLike = true
-            this.userTieList[i].likes += 1
-          } else {
-            this.$Message.success('点赞失败')
-          }
+        likeTieWithAuth(this.userTieList[i].id).then(() => {
+          this.userTieList[i].isLike = true
+          this.userTieList[i].likes += 1
         })
       }
     }
   },
   created () {
     getUserTieListWithAuth().then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.userTieList = data.data
-      }
+      this.userTieList = data.data
     })
   },
   components: {

@@ -89,11 +89,9 @@ export default {
       if (this.baInfo.isFocus) {
         this.$Message.warning('该功能还未开启,请问频繁点击')
       } else {
-        addFocusBaWithAuth({ ba_id: this.baInfo.id }).then(({ data }) => {
-          if (data && data.statusCode === 200) {
-            this.$Message.success('关注该贴吧成功')
-            this.baInfo.isFocus = true
-          }
+        addFocusBaWithAuth({ ba_id: this.baInfo.id }).then(() => {
+          this.$Message.success('关注该贴吧成功')
+          this.baInfo.isFocus = true
         })
       }
     },
@@ -129,18 +127,14 @@ export default {
   },
   created () {
     getBaInfo(parseInt(this.$route.params.id)).then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.baInfo = data.data
-        this.$store.commit('updateRelease', this.baInfo.id)
-        if (this.$Cookies.get('username')) {
-          this.setLocalStorage()
-        }
+      this.baInfo = data.data
+      this.$store.commit('updateRelease', this.baInfo.id)
+      if (this.$Cookies.get('username')) {
+        this.setLocalStorage()
       }
     })
     getTieListByBa(parseInt(this.$route.params.id)).then(({ data }) => {
-      if (data && data.statusCode === 200) {
-        this.tieInfoList = data.data
-      }
+      this.tieInfoList = data.data
     })
   },
   components: {
