@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import BScroll from '@better-scroll/core'
+import BScroll from 'better-scroll'
 import MessageNotice from './messageNotice'
 import MessageChat from './messageChat'
 import MessageHome from './messageHome'

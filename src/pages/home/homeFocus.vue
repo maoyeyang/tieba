@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import BScroll from '@better-scroll/core'
+import BScroll from 'better-scroll'
 import { getTieListByFocus } from 'api'
 import TieItem from 'components/tie/tieItem'
 export default {

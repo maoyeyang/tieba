@@ -18,7 +18,7 @@
              src="../../assets/icon/sign.png" />
       </span>
     </div>
-    <keep-alive>
+    <keep-alive exclude="JoinFocus">
       <router-view></router-view>
     </keep-alive>
   </div>

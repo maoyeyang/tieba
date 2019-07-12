@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import BScroll from '@better-scroll/core'
+import BScroll from 'better-scroll'
 import searchInput from 'components/input/searchInput'
 import newWatch from 'components/join/newWatch'
 import focusBa from 'components/join/focusBa'
