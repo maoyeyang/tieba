@@ -29,7 +29,7 @@
              src="../../assets/icon/search.png" />
       </router-link>
     </div>
-    <keep-alive exclude="HomeFocus">
+    <keep-alive include="HomeContent">
       <router-view></router-view>
     </keep-alive>
   </div>

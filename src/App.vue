@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <keep-alive>
+    <keep-alive include="Home,Join">
       <router-view />
     </keep-alive>
     <Tabbar v-show='$store.getters.isTabbar'></Tabbar>

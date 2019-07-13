@@ -2,8 +2,7 @@
   <nav class="tabbar">
     <router-link tag="span"
                  class="tabbar-item"
-                 to="/home"
-                 :class="isRefresh? 'refresh' :''">
+                 to="/home">
       <div class="tabbar-item-icon icon-home"
            v-show="!this.$store.getters.isRefresh">
       </div>
@@ -56,7 +55,6 @@ export default {
   name: 'Tabbar',
   data () {
     return {
-      isRefresh: false,
       message_number: 100
     }
   },
@@ -97,6 +95,8 @@ export default {
   .tabbar-item
     flex: 1
     text-align: center
+    &:active
+      background-color: #ccc
     .tabbar-item-icon
       margin: 5px auto 0
       height: 30px

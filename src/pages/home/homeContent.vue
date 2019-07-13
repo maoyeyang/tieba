@@ -54,16 +54,16 @@ export default {
           }
         })
         this.scroll.on('scroll', (pos) => {
-          if (pos.y < 0) {
+          if (pos.y < 0 && !this.$store.getters.isScroll) {
             this.$store.commit('updateScrollStatus', true)
           }
-          if (pos.y >= 0) {
+          if (pos.y >= 0 && this.$store.getters.isScroll) {
             this.$store.commit('updateScrollStatus', false)
           }
-          if (pos.y < -500) {
+          if (pos.y < -500 && !this.$store.getters.isRefresh) {
             this.$store.commit('updateRefreshStatus', true)
           }
-          if (pos.y >= -500) {
+          if (pos.y >= -500 && this.$store.getters.isRefresh) {
             this.$store.commit('updateRefreshStatus', false)
           }
         })

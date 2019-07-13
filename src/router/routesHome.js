@@ -19,7 +19,7 @@ export default [{
   },
   {
     path: 'content',
-    name: 'Header',
+    name: 'HomeContent',
     component: HomeContent
   },
   {
