@@ -5,7 +5,7 @@
   "author": "maoyeyang <673842307@qq.com>",
   "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --host 192.168.1.4 --progress --config build/webpack.dev.conf.js",
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"

@@ -6,7 +6,7 @@ import {
   Message
 } from 'iview'
 
-axios.defaults.baseURL = 'http://192.168.1.4:3000/'
+axios.defaults.baseURL = 'http://127.0.0.1:3000/'
 axios.defaults.withCredentials = true
 axios.defaults.timeout = 5000
 
