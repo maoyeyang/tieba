@@ -15,7 +15,7 @@
     "better-scroll": "^1.15.2",
     "iview": "^3.4.2",
     "js-cookie": "^2.2.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "moment": "^2.24.0",
     "vue": "^2.5.2",
     "vue-photo-preview": "^1.1.3",
